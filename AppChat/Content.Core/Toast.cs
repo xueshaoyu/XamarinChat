@@ -9,7 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Content.Core;
+using Content.Core; 
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(Toast_Android))]
