@@ -22,7 +22,7 @@
                                       Text="Delete" IsDestructive="True" />
                         </ViewCell.ContextActions>-->
                         <StackLayout Padding="15,0">
-                            <Label Text="{Binding Name}" HorizontalOptions="CenterAndExpand" FontSize="18" FontFamily="" />
+                            <Label Text="{Binding Name}" VerticalOptions="CenterAndExpand" HorizontalOptions="Start" FontSize="18" FontFamily="" />
 
 </StackLayout>
                     </ViewCell>

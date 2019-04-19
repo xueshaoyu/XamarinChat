@@ -33,6 +33,12 @@ namespace Content.Core
         public static int Port { get; set; } = 7777;
         private static IMqttClient _mqttClient;
 
+        public static IMqttClient MqttClient
+        {
+            get { return _mqttClient; }
+        }
+
+
         private void Init()
         {
 
@@ -76,7 +82,7 @@ namespace Content.Core
         {
             var msg = new MqttApplicationMessage()
             {
-                Topic = MQTTTopic.Msg.ToString() + msgInfo.ReceiveId,
+                Topic = MQTTTopic.Msg.ToString() +"-"+ msgInfo.ReceiveId,
                 Payload = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(msgInfo)),
                 QualityOfServiceLevel = MqttQualityOfServiceLevel.AtMostOnce,
                 Retain = false

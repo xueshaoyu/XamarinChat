@@ -42,7 +42,7 @@ namespace Content.Core
                 App.UserPreferences.SetObj(EnumUserPreferences.UserInfo.ToString(), currentUser);
                 App.CurrentUser = currentUser;
                 Toast_Android.Instance.ShortAlert("Register Successed!");
-                Application.Current.MainPage = Login.Instance;
+                Application.Current.MainPage = new NavigationPage(Login.Instance);
             }
             else
             {

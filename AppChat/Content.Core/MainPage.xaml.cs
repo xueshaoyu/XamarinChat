@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Android.App;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Application = Xamarin.Forms.Application;
 
 namespace Content.Core
 {
@@ -73,7 +74,9 @@ namespace Content.Core
 
         private void UserList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-
+            var item = e.SelectedItem as UserInfo;
+            if(item!=null)
+            Application.Current.MainPage = new NavigationPage(new ChatPage(item));
         }
 
         private void UserList_Refreshing(object sender, EventArgs e)

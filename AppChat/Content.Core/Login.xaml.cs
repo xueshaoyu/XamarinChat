@@ -48,6 +48,11 @@ namespace Content.Core
                     App.CurrentUser = currentUser;
                     Application.Current.MainPage = new NavigationPage(MainPage.Instance);
                 }
+                else
+                {
+
+                    Toast_Android.Instance.ShortAlert("Login Failed!");
+                }
             }
             else
             {

@@ -4,7 +4,8 @@
              x:Class="Content.Core.Register" Title="Register">
     
     <StackLayout>
-            <Grid>
+        <Label HorizontalOptions="CenterAndExpand" Text="Register" Margin="0,25"></Label>
+        <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition Width="6*"></ColumnDefinition>

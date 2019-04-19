@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Content.Core.Login" Title="Login">
-    
+
     <StackLayout>
-            <Grid>
+        <Label HorizontalOptions="CenterAndExpand" Text="Login" Margin="0,25"></Label>
+        <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition Width="6*"></ColumnDefinition>

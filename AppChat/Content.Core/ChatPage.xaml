@@ -1,13 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:core="clr-namespace:Content.Core;assembly=Content.Core"
              x:Class="Content.Core.ChatPage">
+    <ContentPage.Resources>
+        <core:MsgSourceConverter x:Key="MsgSourceConverter"></core:MsgSourceConverter>
+        <core:PositionSourceConverter x:Key="PositionSourceConverter"></core:PositionSourceConverter>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Back" Clicked="Back_MainPage"  Order="Secondary"/>
+        <ToolbarItem Text="Back" Clicked="Back_MainPage"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
-           
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="70"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackLayout Grid.ColumnSpan="2" VerticalOptions="FillAndExpand">
+                <ListView x:Name="MsgList" ItemsSource="{Binding Messages}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                    <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding Content}" Grid.Column="{Binding SendId, Converter={StaticResource PositionSourceConverter }}" VerticalOptions="CenterAndExpand" FontSize="18" FontFamily="" 
+                                           HorizontalOptions="{Binding SendId, Converter={StaticResource MsgSourceConverter }}"/>
+                                    </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+            <Editor x:Name="SendMsg" Grid.Row="1" Grid.Column="0" Placeholder="please input you message here"></Editor>
+            <Button Grid.Row="1" Grid.Column="1" Text="Send" Clicked="SendMsg_Button_Clicked" />
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

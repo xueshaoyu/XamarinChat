@@ -1,5 +1,6 @@
 ﻿using System;
 using Android.App;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Application = Xamarin.Forms.Application;
 
@@ -20,7 +21,7 @@ namespace Content.Core
         {
             InitializeComponent();
 
-            MainPage = Login.Instance;
+            MainPage = new NavigationPage(Login.Instance);
         }
 
         protected override void OnStart()
@@ -42,13 +43,13 @@ namespace Content.Core
         {
             if (CurrentUser != null && CurrentUser.Guid == "")
             {
-               var task= MQTTHelper.Instance.Offline(CurrentUser);
+                var task = MQTTHelper.Instance.Offline(CurrentUser);
                 if (task.Result)
                 {
 
 
                 }
-               
+
             }
             Application.Current.Quit();
         }
