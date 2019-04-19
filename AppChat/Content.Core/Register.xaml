@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Content.Core.Register" Title="Register">
+    
+    <StackLayout>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="6*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Text="User Name: "
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+                <Editor Grid.Column="1" x:Name="UserName" Placeholder="Please Type User Name" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="6*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Text="Password: "
+                   VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="CenterAndExpand" />
+                
+                <Editor Grid.Column="1" x:Name="Password" Placeholder="Please Type Password"  />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="6*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Text="Confirm Pwd: "
+                   VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="CenterAndExpand" />
+
+            <Editor Grid.Column="1" x:Name="ConfirmPassword" Placeholder="Please Type Password Again"/>
+        </Grid>
+        <Button Text="Register" Clicked="Register_Button_Clicked" />
+        <Button Text="Cancel" Clicked="Cancel_Button_Clicked" />
+    </StackLayout>
+</ContentPage>

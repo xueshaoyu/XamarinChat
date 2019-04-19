@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Content.Core.MainPage" Title="Main Page">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Exit" Clicked="Exit_App_Clicked"  Order="Secondary"/>
+    </ContentPage.ToolbarItems>
+    <StackLayout>
+        <ListView x:Name="UserList" 
+                  IsPullToRefreshEnabled="true" 
+                  RefreshControlColor="Blue"
+                  Refreshing="UserList_Refreshing"
+                  ItemSelected="UserList_ItemSelected" 
+                  ItemsSource="{Binding UserList}">
+             <ListView.ItemTemplate>
+               <DataTemplate>
+                    <ViewCell>
+                       <!--<ViewCell.ContextActions>
+                            <MenuItem Clicked="OnMore" CommandParameter="{Binding .}"
+                                      Text="More" />
+                            <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}"
+                                      Text="Delete" IsDestructive="True" />
+                        </ViewCell.ContextActions>-->
+                        <StackLayout Padding="15,0">
+                            <Label Text="{Binding Name}" HorizontalOptions="CenterAndExpand" FontSize="18" FontFamily="" />
+
+</StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+</ContentPage>
