@@ -10,30 +10,13 @@ using System.Windows.Forms;
 
 namespace MqttNetServer
 {
-    /// <summary>
-    /// 本类为SQLite数据库帮助静态类,使用时只需直接调用即可,无需实例化
-    /// </summary>
     public static class SQLiteHelper
     {
-        /// <summary>
-        /// 数据库文件物理地址
-        /// </summary>
-
         public static string dbFilePath = Application.StartupPath + "\\" + System.Configuration.ConfigurationSettings.AppSettings["DbName"];
 
 
-        /// <summary>
-        /// 数据库连接字符串
-        /// </summary>
         public static string connectionString = "Data Source=" + dbFilePath;
 
-
-        #region 执行数据库操作(新增、更新或删除)，返回影响行数
-        /// <summary>
-        /// 执行数据库操作(新增、更新或删除)
-        /// </summary>
-        /// <param name="cmd">SqlCommand对象</param>
-        /// <returns>所受影响的行数</returns>
         public static int ExecuteNonQuery(SQLiteCommand cmd)
         {
             int result = 0;
@@ -57,12 +40,6 @@ namespace MqttNetServer
             return result;
         }
 
-        /// <summary>
-        /// 执行数据库操作(新增、更新或删除)
-        /// </summary>
-        /// <param name="commandText">执行语句或存储过程名</param>
-        /// <param name="commandType">执行类型(默认语句)</param>
-        /// <returns>所受影响的行数</returns>
         public static int ExecuteNonQuery(string commandText, CommandType commandType = CommandType.Text)
         {
             int result = 0;
@@ -89,13 +66,6 @@ namespace MqttNetServer
             return result;
         }
 
-        /// <summary>
-        /// 执行数据库操作(新增、更新或删除)
-        /// </summary>
-        /// <param name="commandText">执行语句或存储过程名</param>
-        /// <param name="commandType">执行类型(默认语句)</param>
-        /// <param name="cmdParms">SQL参数对象</param>
-        /// <returns>所受影响的行数</returns>
         public static int ExecuteNonQuery(string commandText, CommandType commandType = CommandType.Text, params SQLiteParameter[] cmdParms)
         {
             int result = 0;
@@ -122,14 +92,6 @@ namespace MqttNetServer
             }
             return result;
         }
-        #endregion
-
-        #region 执行数据库操作(新增、更新或删除)同时返回执行后查询所得的第1行第1列数据
-        /// <summary>
-        /// 执行数据库操作(新增、更新或删除)同时返回执行后查询所得的第1行第1列数据
-        /// </summary>
-        /// <param name="cmd">SqlCommand对象</param>
-        /// <returns>查询所得的第1行第1列数据</returns>
         public static object ExecuteScalar(SQLiteCommand cmd)
         {
             object result = 0;
@@ -152,13 +114,6 @@ namespace MqttNetServer
             }
             return result;
         }
-
-        /// <summary>
-        /// 执行数据库操作(新增、更新或删除)同时返回执行后查询所得的第1行第1列数据
-        /// </summary>
-        /// <param name="commandText">执行语句或存储过程名</param>
-        /// <param name="commandType">执行类型（默认语句）</param>
-        /// <returns>查询所得的第1行第1列数据</returns>
         public static object ExecuteScalar(string commandText, CommandType commandType = CommandType.Text)
         {
             object result = 0;
@@ -185,13 +140,6 @@ namespace MqttNetServer
             return result;
         }
 
-        /// <summary>
-        /// 执行数据库操作(新增、更新或删除)同时返回执行后查询所得的第1行第1列数据
-        /// </summary>
-        /// <param name="commandText">执行语句或存储过程名</param>
-        /// <param name="commandType">执行类型(默认语句)</param>
-        /// <param name="cmdParms">SQL参数对象</param>
-        /// <returns>查询所得的第1行第1列数据</returns>
         public static object ExecuteScalar(string commandText, CommandType commandType = CommandType.Text, params SQLiteParameter[] cmdParms)
         {
             object result = 0;
@@ -218,14 +166,6 @@ namespace MqttNetServer
             }
             return result;
         }
-        #endregion
-
-        #region 执行数据库查询，返回SqlDataReader对象
-        /// <summary>
-        /// 执行数据库查询，返回SqlDataReader对象
-        /// </summary>
-        /// <param name="cmd">SqlCommand对象</param>
-        /// <returns>SqlDataReader对象</returns>
         public static DbDataReader ExecuteReader(SQLiteCommand cmd)
         {
             DbDataReader reader = null;
@@ -246,12 +186,6 @@ namespace MqttNetServer
             return reader;
         }
 
-        /// <summary>
-        /// 执行数据库查询，返回SqlDataReader对象
-        /// </summary>
-        /// <param name="commandText">执行语句或存储过程名</param>
-        /// <param name="commandType">执行类型(默认语句)</param>
-        /// <returns>SqlDataReader对象</returns>
         public static DbDataReader ExecuteReader(string commandText, CommandType commandType = CommandType.Text)
         {
             DbDataReader reader = null;
@@ -274,14 +208,6 @@ namespace MqttNetServer
             }
             return reader;
         }
-
-        /// <summary>
-        /// 执行数据库查询，返回SqlDataReader对象
-        /// </summary>
-        /// <param name="commandText">执行语句或存储过程名</param>
-        /// <param name="commandType">执行类型（默认语句）</param>
-        /// <param name="cmdParms">SQL参数对象</param>
-        /// <returns>SqlDataReader对象</returns>
         public static DbDataReader ExecuteReader(string commandText, CommandType commandType = CommandType.Text, params SQLiteParameter[] cmdParms)
         {
             DbDataReader reader = null;
@@ -304,14 +230,6 @@ namespace MqttNetServer
             }
             return reader;
         }
-        #endregion
-
-        #region 执行数据库查询，返回DataSet对象
-        /// <summary>
-        /// 执行数据库查询，返回DataSet对象
-        /// </summary>
-        /// <param name="cmd">SqlCommand对象</param>
-        /// <returns>DataSet对象</returns>
         public static DataSet ExecuteDataSet(SQLiteCommand cmd)
         {
             DataSet ds = new DataSet();
@@ -339,13 +257,6 @@ namespace MqttNetServer
             }
             return ds;
         }
-
-        /// <summary>
-        /// 执行数据库查询，返回DataSet对象
-        /// </summary>
-        /// <param name="commandText">执行语句或存储过程名</param>
-        /// <param name="commandType">执行类型(默认语句)</param>
-        /// <returns>DataSet对象</returns>
         public static DataSet ExecuteDataSet(string commandText, CommandType commandType = CommandType.Text)
         {
             if (connectionString == null || connectionString.Length == 0)
@@ -379,13 +290,6 @@ namespace MqttNetServer
             return ds;
         }
 
-        /// <summary>
-        /// 执行数据库查询，返回DataSet对象
-        /// </summary>
-        /// <param name="commandText">执行语句或存储过程名</param>
-        /// <param name="commandType">执行类型(默认语句)</param>
-        /// <param name="cmdParms">SQL参数对象</param>
-        /// <returns>DataSet对象</returns>
         public static DataSet ExecuteDataSet(string commandText, CommandType commandType = CommandType.Text, params SQLiteParameter[] cmdParms)
         {
             if (connectionString == null || connectionString.Length == 0)
@@ -418,15 +322,6 @@ namespace MqttNetServer
             }
             return ds;
         }
-        #endregion
-
-        #region 执行数据库查询，返回DataTable对象
-        /// <summary>
-        /// 执行数据库查询，返回DataTable对象
-        /// </summary>
-        /// <param name="commandText">执行语句或存储过程名</param>
-        /// <param name="commandType">执行类型(默认语句)</param>
-        /// <returns>DataTable对象</returns>
         public static DataTable ExecuteDataTable(string commandText, CommandType commandType = CommandType.Text)
         {
             if (string.IsNullOrEmpty(connectionString))
@@ -460,20 +355,6 @@ namespace MqttNetServer
             return dt;
         }
 
-        #endregion
-
-        #region 通用分页查询方法
-        /// <summary>
-        /// 通用分页查询方法
-        /// </summary>
-        /// <param name="tableName">表名</param>
-        /// <param name="strColumns">查询字段名</param>
-        /// <param name="strWhere">where条件</param>
-        /// <param name="strOrder">排序条件</param>
-        /// <param name="pageSize">每页数据数量</param>
-        /// <param name="currentIndex">当前页数</param>
-        /// <param name="recordOut">数据总量</param>
-        /// <returns>DataTable数据表</returns>
         public static DataTable SelectPaging(string tableName, string strColumns, string strWhere, string strOrder, int pageSize, int currentIndex, out int recordOut)
         {
             DataTable dt = new DataTable();
@@ -491,19 +372,7 @@ namespace MqttNetServer
             return dt;
         }
 
-        #endregion
-
-        #region 预处理Command对象,数据库链接,事务,需要执行的对象,参数等的初始化
-        /// <summary>
-        /// 预处理Command对象,数据库链接,事务,需要执行的对象,参数等的初始化
-        /// </summary>
-        /// <param name="cmd">Command对象</param>
-        /// <param name="conn">Connection对象</param>
-        /// <param name="trans">Transcation对象</param>
-        /// <param name="useTrans">是否使用事务</param>
-        /// <param name="cmdType">SQL字符串执行类型</param>
-        /// <param name="cmdText">SQL Text</param>
-        /// <param name="cmdParms">SQLiteParameters to use in the command</param>
+    
         private static void PrepareCommand(SQLiteCommand cmd, SQLiteConnection conn, ref SQLiteTransaction trans, bool useTrans, CommandType cmdType, string cmdText, params SQLiteParameter[] cmdParms)
         {
 
@@ -529,7 +398,6 @@ namespace MqttNetServer
             }
         }
 
-        #endregion
 
     }
 }

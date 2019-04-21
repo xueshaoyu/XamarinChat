@@ -148,14 +148,14 @@ namespace MqttNetServer
                 listBox1.BeginInvoke(_updateListBoxAction, $">Client Connected:ClientId:{args.ClientId},ProtocalVersion:");
 
                 var s = _mqttServer.GetClientSessionsStatusAsync();
-                label3.BeginInvoke(new Action(() => { label3.Text = $"连接总数：{s.Result.Count}"; }));
+                label3.BeginInvoke(new Action(() => { label3.Text = $"Total Count：{s.Result.Count}"; }));
             };
 
             _mqttServer.ClientDisconnected += (sender, args) =>
             {
                 listBox1.BeginInvoke(_updateListBoxAction, $"<Client DisConnected:ClientId:{args.ClientId}");
                 var s = _mqttServer.GetClientSessionsStatusAsync();
-                label3.BeginInvoke(new Action(() => { label3.Text = $"连接总数：{s.Result.Count}"; }));
+                label3.BeginInvoke(new Action(() => { label3.Text = $"Total Count：{s.Result.Count}"; }));
             };
 
             _mqttServer.ApplicationMessageReceived += (sender, args) =>
