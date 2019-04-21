@@ -1,5 +1,6 @@
 ﻿using System;
 using Android.App;
+using Chat.Model;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Application = Xamarin.Forms.Application;
@@ -41,14 +42,10 @@ namespace Content.Core
 
         public static void Exit()
         {
-            if (CurrentUser != null && CurrentUser.Guid == "")
+            if (CurrentUser != null && CurrentUser.Id >0)
             {
-                var task = MQTTHelper.Instance.Offline(CurrentUser);
-                if (task.Result)
-                {
-
-
-                }
+                HttpClientHelper client = new HttpClientHelper();
+                client.Offline(CurrentUser);
 
             }
             Application.Current.Quit();

@@ -1,7 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:core="clr-namespace:Content.Core"
              x:Class="Content.Core.MainPage" Title="Main Page">
+    <ContentPage.Resources>
+        <core:UserStateConverter x:Key="UserStateConverter"></core:UserStateConverter>
+        <core:OnlineConverter x:Key="OnlineConverter"></core:OnlineConverter>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Exit" Clicked="Exit_App_Clicked"  Order="Secondary"/>
     </ContentPage.ToolbarItems>
@@ -11,10 +16,12 @@
                   RefreshControlColor="Blue"
                   Refreshing="UserList_Refreshing"
                   ItemSelected="UserList_ItemSelected" 
+                  SelectionMode="None"
+                  ItemTapped="UserList_ItemTapped"
                   ItemsSource="{Binding UserList}">
              <ListView.ItemTemplate>
                <DataTemplate>
-                    <ViewCell>
+                    <ViewCell Height="20">
                        <!--<ViewCell.ContextActions>
                             <MenuItem Clicked="OnMore" CommandParameter="{Binding .}"
                                       Text="More" />
@@ -22,9 +29,15 @@
                                       Text="Delete" IsDestructive="True" />
                         </ViewCell.ContextActions>-->
                         <StackLayout Padding="15,0">
-                            <Label Text="{Binding Name}" VerticalOptions="CenterAndExpand" HorizontalOptions="Start" FontSize="18" FontFamily="" />
-
-</StackLayout>
+                            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="70"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Name}" TextColor="{Binding Online,Converter={StaticResource UserStateConverter}}" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" FontSize="14" FontFamily="" />
+                                <Label Grid.Column="1" Text="{Binding Online, Converter={StaticResource OnlineConverter}}" VerticalOptions="CenterAndExpand"></Label>
+                            </Grid>
+                        </StackLayout>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

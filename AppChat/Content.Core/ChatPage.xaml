@@ -21,18 +21,27 @@
                 <ColumnDefinition Width="70"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <StackLayout Grid.ColumnSpan="2" VerticalOptions="FillAndExpand">
-                <ListView x:Name="MsgList" ItemsSource="{Binding Messages}">
+                <ListView x:Name="MsgList" ItemsSource="{Binding Messages}" 
+                  SelectionMode="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell>
-                                    <Grid>
+                            <ViewCell Height="25">
+                                <Grid HorizontalOptions="FillAndExpand">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1*"></ColumnDefinition>
                                         <ColumnDefinition Width="1*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <Label Text="{Binding Content}" Grid.Column="{Binding SendId, Converter={StaticResource PositionSourceConverter }}" VerticalOptions="CenterAndExpand" FontSize="18" FontFamily="" 
+                                    <Grid Grid.Column="{Binding SendId, Converter={StaticResource PositionSourceConverter }}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="10"></RowDefinition>
+                                            <RowDefinition Height="15"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Text="{Binding DateTime}" FontSize="8" HorizontalOptions="{Binding SendId,Converter={StaticResource MsgSourceConverter}}" TextColor="Gray"></Label>
+                                        <Label Grid.Row="1" Text="{Binding Content}"  VerticalOptions="CenterAndExpand" 
                                            HorizontalOptions="{Binding SendId, Converter={StaticResource MsgSourceConverter }}"/>
+                                        
                                     </Grid>
+                                </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>

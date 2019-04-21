@@ -69,5 +69,20 @@ namespace Chat.Droid
             }
 
         }
+
+        public void SetInt(string key, int value)
+        {
+            var prefs = Application.Context.GetSharedPreferences("MySharedPrefs", FileCreationMode.Private);
+            var prefsEditor = prefs.Edit();
+
+            prefsEditor.PutInt(key, value);
+            prefsEditor.Commit();
+        }
+
+        public int GetInt(string key)
+        {
+            var prefs = Application.Context.GetSharedPreferences("MySharedPrefs", FileCreationMode.Private);
+            return prefs.GetInt(key, 0);
+        }
     }
 }

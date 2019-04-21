@@ -3,7 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Content.Core.Login" Title="Login">
 
-    <StackLayout>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Settings" Clicked="Settings_Clicked"/>
+    </ContentPage.ToolbarItems>
+    <Grid>
+     <StackLayout x:Name="LoginArea">
         <Label HorizontalOptions="CenterAndExpand" Text="Login" Margin="0,25"></Label>
         <Grid>
                 <Grid.ColumnDefinitions>
@@ -35,5 +39,40 @@
             <Button Grid.Column="1" Text="Close" Clicked="Close_Button_Clicked" />
         </Grid>
         <Button Text="Register" Clicked="Register_Button_Clicked" />
-    </StackLayout>
+        </StackLayout>
+        <StackLayout  x:Name="SettingArea" IsVisible="False">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="6*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Text="ServerIp: "
+                   VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="CenterAndExpand" />
+                <Editor Grid.Column="1" x:Name="ServerIp" Placeholder="MQTT Server Ip"  />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="6*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Text="ServerPort: "
+                   VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="CenterAndExpand" />
+                <Editor Grid.Column="1" x:Name="ServerPort" Placeholder="MQTT Server Port"  />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="6*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Text="ServerApi: "
+                   VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="CenterAndExpand" />
+                <Editor Grid.Column="1" x:Name="ServerApi" Placeholder="Web Api Address"  />
+            </Grid>
+            <Button Text="Confirm" Clicked="Settings_Confirm_Clicked" />
+            <Button Text="Cancel" Clicked="Settings_Cancel_Clicked" />
+        </StackLayout>
+    </Grid>
 </ContentPage>

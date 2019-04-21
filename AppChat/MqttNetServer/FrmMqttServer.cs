@@ -9,6 +9,10 @@ using MQTTnet.Server;
 using MQTTnet.Protocol;
 using ServiceStack;
 using ServiceStack.Text.Common;
+using SimpleHttpServer;
+using SimpleHttpServer.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MqttNetServer
 {
@@ -45,15 +49,15 @@ namespace MqttNetServer
                 {
                     listBox1.Items.RemoveAt(0);
                 }
-                var visibleItems = listBox1.ClientRectangle.Height/listBox1.ItemHeight;
+                var visibleItems = listBox1.ClientRectangle.Height / listBox1.ItemHeight;
 
                 listBox1.TopIndex = listBox1.Items.Count - visibleItems + 1;
             });
-            
+
 
             listBox1.KeyPress += (o, args) =>
             {
-                if (args.KeyChar == 'c' || args.KeyChar=='C')
+                if (args.KeyChar == 'c' || args.KeyChar == 'C')
                 {
                     listBox1.Items.Clear();
                 }
@@ -65,9 +69,14 @@ namespace MqttNetServer
             TxbPort.Enabled = true;
         }
 
+        ServerHelper Server = new ServerHelper();
         private void BtnStart_Click(object sender, EventArgs e)
         {
             MqttServer();
+            var task = Task.Run(() =>
+              {
+                  Server.Setup(7778);
+              });
             BtnStart.Enabled = false;
             BtnStop.Enabled = true;
             TxbServer.Enabled = false;
@@ -76,7 +85,7 @@ namespace MqttNetServer
 
         private void BtnStop_Click(object sender, EventArgs e)
         {
-            if (null != _mqttServer )
+            if (null != _mqttServer)
             {
                 foreach (var clientSessionStatuse in _mqttServer.GetClientSessionsStatusAsync().Result)
                 {
@@ -85,6 +94,10 @@ namespace MqttNetServer
                 _mqttServer.StopAsync();
                 _mqttServer = null;
             }
+            var task = Task.Run(() =>
+            {
+                Server.Stop();
+            });
             BtnStart.Enabled = true;
             BtnStop.Enabled = false;
             TxbServer.Enabled = true;
@@ -105,9 +118,9 @@ namespace MqttNetServer
             {
                 optionBuilder.WithDefaultEndpointBoundIPAddress(IPAddress.Parse(TxbServer.Text));
             }
-            
+
             var options = optionBuilder.Build();
-                       
+
             (options as MqttServerOptions).ConnectionValidator += context =>
             {
                 if (context.ClientId.Length < 10)
@@ -126,9 +139,9 @@ namespace MqttNetServer
                     return;
                 }
                 context.ReturnCode = MqttConnectReturnCode.ConnectionAccepted;
-                
+
             };
-            
+
             _mqttServer = new MqttFactory().CreateMqttServer();
             _mqttServer.ClientConnected += (sender, args) =>
             {
@@ -169,10 +182,13 @@ namespace MqttNetServer
             _mqttServer.Stopped += (sender, args) =>
             {
                 listBox1.BeginInvoke(_updateListBoxAction, "Mqtt Server Stop...");
-                
+
             };
 
             await _mqttServer.StartAsync(options);
         }
+
+
+      
     }
 }

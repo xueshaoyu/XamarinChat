@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Chat.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,27 +33,23 @@ namespace Content.Core
 
         private async void Login_Button_Clicked(object sender, EventArgs e)
         {
-            var registerUser = App.UserPreferences.GetObj<UserInfo>(EnumUserPreferences.UserInfo.ToString());
+            //  var registerUser = App.UserPreferences.GetObj<UserInfo>(EnumUserPreferences.UserInfo.ToString());
             var currentUser = new UserInfo();
-            currentUser.Guid = registerUser.Guid;
             currentUser.Name = UserName.Text;
             currentUser.Password = Password.Text;
-            if (registerUser.Name == currentUser.Name && registerUser.Password == currentUser.Password)
+            HttpClientHelper client = new HttpClientHelper();
+            var id = await client.Login(currentUser);
+            if (id > 0)
             {
-                var result = await  MQTTHelper.Instance.Online(currentUser);
-               
-                if (result)
-                {
-
-                    Toast_Android.Instance.ShortAlert("Login Successed!");
-                    App.CurrentUser = currentUser;
-                    Application.Current.MainPage = new NavigationPage(MainPage.Instance);
-                }
-                else
-                {
-
-                    Toast_Android.Instance.ShortAlert("Login Failed!");
-                }
+                currentUser.Id = id;
+                App.UserPreferences.SetObj<UserInfo>(EnumUserPreferences.UserInfo.ToString(), currentUser);
+                client.Online(currentUser);
+                Toast_Android.Instance.ShortAlert("Login Successed!");
+                App.CurrentUser = currentUser;
+              
+            
+                Application.Current.MainPage = new NavigationPage(MainPage.Instance);
+                await MQTTHelper.Instance.Online(currentUser);
             }
             else
             {
@@ -69,6 +66,41 @@ namespace Content.Core
         {
 
             Application.Current.MainPage = Register.Instance;
+        }
+
+        private void Settings_Clicked(object sender, EventArgs e)
+        {
+            SettingArea.IsVisible = true;
+            LoginArea.IsVisible = false;
+
+
+            ServerApi.Text= App.UserPreferences.GetString(EnumUserPreferences.ServerAddress.ToString());
+            ServerIp.Text= App.UserPreferences.GetString(EnumUserPreferences.MqttServerIp.ToString());
+            ServerPort.Text= App.UserPreferences.GetInt(EnumUserPreferences.MqttServerPort.ToString()).ToString();
+        }
+
+        private void Settings_Confirm_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                App.UserPreferences.SetString(EnumUserPreferences.ServerAddress.ToString(), ServerApi.Text);
+                App.UserPreferences.SetString(EnumUserPreferences.MqttServerIp.ToString(), ServerIp.Text);
+                App.UserPreferences.SetInt(EnumUserPreferences.MqttServerPort.ToString(), Convert.ToInt32(ServerPort.Text));
+
+                Toast_Android.Instance.ShortAlert("Set Successed!");
+                SettingArea.IsVisible = false;
+                LoginArea.IsVisible = true;
+            }
+            catch
+            {
+                Toast_Android.Instance.ShortAlert("Set Failed!");
+            }
+        }
+
+        private void Settings_Cancel_Clicked(object sender, EventArgs e)
+        {
+            SettingArea.IsVisible = false;
+            LoginArea.IsVisible = true;
         }
     }
 }

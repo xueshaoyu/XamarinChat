@@ -23,10 +23,17 @@ namespace Chat.Droid
             Instance = this;
             App.MainActivity = this;
             App.Init(new UserPreferencesAndroid());
+            var exist = App.UserPreferences.GetString(EnumUserPreferences.ServerAddress.ToString());
+            if (exist == null || exist == "")
+            {
+                App.UserPreferences.SetString(EnumUserPreferences.ServerAddress.ToString(), "http://192.168.0.150:7778/api/");
+                App.UserPreferences.SetString(EnumUserPreferences.MqttServerIp.ToString(), "192.168.0.150");
+                App.UserPreferences.SetInt(EnumUserPreferences.MqttServerPort.ToString(), 7777);
+            }
             var app = new App();
             LoadApplication(app);
             // MQTTHelper.Init();
         }
-        
+
     }
 }

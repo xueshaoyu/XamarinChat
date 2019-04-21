@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Chat.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,12 +36,11 @@ namespace Content.Core
             var currentUser = new UserInfo();
             currentUser.Name = UserName.Text;
             currentUser.Password = Password.Text;
-            var result = await   MQTTHelper.Instance.Register(currentUser);
-          
-            if (result)
+
+            HttpClientHelper client = new HttpClientHelper();
+            var id = await client.Register(currentUser);
+            if (id > 0)
             {
-                App.UserPreferences.SetObj(EnumUserPreferences.UserInfo.ToString(), currentUser);
-                App.CurrentUser = currentUser;
                 Toast_Android.Instance.ShortAlert("Register Successed!");
                 Application.Current.MainPage = new NavigationPage(Login.Instance);
             }

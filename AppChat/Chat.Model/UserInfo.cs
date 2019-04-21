@@ -2,12 +2,23 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Content.Core
+namespace Chat.Model
 {
-    public class UserInfo
+    public class UserInfo:ModelBase
     {
-        public string Guid { get; set; } = System.Guid.NewGuid().ToString("D");
         public string Name { get; set; }
         public string Password { get; set; }
+        private int online = 0;
+        public int Online { get{
+                return online;
+            } set
+            {
+                if (value != online)
+                {
+                    online = value;
+                    OnPropertyChanged("Online");
+                }
+            }
+        }
     }
 }

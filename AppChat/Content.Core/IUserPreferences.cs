@@ -11,11 +11,17 @@ namespace Content.Core
         void SetString(string key, string value);
         string GetString(string key);
         void DeleteString(string key);
+
+
+        void SetInt(string key, int value);
+        int GetInt(string key);
     }
 
     public enum EnumUserPreferences
     {
         UserInfo,
-
+        ServerAddress,
+        MqttServerIp,
+        MqttServerPort,
     }
 }

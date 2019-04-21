@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Chat.Model;
 using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Client.Options;
 using MQTTnet.Client.Publishing;
+using MQTTnet.Client.Subscribing;
 using MQTTnet.Protocol;
 using Newtonsoft.Json;
 
@@ -22,31 +25,32 @@ namespace Content.Core
                 if (instance == null)
                 {
                     instance = new MQTTHelper();
-                    instance.Init();
+                  var task=  instance.Init();
+                    Thread.Sleep(500);
                 }
 
                 return instance;
             }
         }
-        public static string ServerIp { get; set; } = "192.168.1.3";
+        public static string ServerIp { get; set; } = App.UserPreferences.GetString(EnumUserPreferences.MqttServerIp.ToString());
 
-        public static int Port { get; set; } = 7777;
-        private static IMqttClient _mqttClient;
+        public static int Port { get; set; } = App.UserPreferences.GetInt(EnumUserPreferences.MqttServerPort.ToString());
+        private IMqttClient _mqttClient;
 
-        public static IMqttClient MqttClient
+        public IMqttClient MqttClient
         {
             get { return _mqttClient; }
         }
 
 
-        private void Init()
+        private async Task<bool> Init()
         {
 
             try
             {
 
-               // var options = new MqttClientOptions() { ClientId = userInfo.Guid + "-" + userInfo.Name };
-                var options = new MqttClientOptions() { ClientId =Guid.NewGuid().ToString("D") };
+                // var options = new MqttClientOptions() { ClientId = userInfo.Guid + "-" + userInfo.Name };
+                var options = new MqttClientOptions() { ClientId = Guid.NewGuid().ToString("D") };
                 options.ChannelOptions = new MqttClientTcpOptions()
                 {
                     Server = ServerIp,
@@ -64,17 +68,46 @@ namespace Content.Core
 
                 if (_mqttClient == null)
                 { _mqttClient = new MqttFactory().CreateMqttClient(); }
-                //_mqttClient.SubscribeAsync(
-                //   new TopicFilterBuilder().WithTopic("")
-                //       .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce).Build());
 
-                var cancel = new CancellationToken();
-                var r = _mqttClient.ConnectAsync(options, cancel);
-                r.Wait(cancel);
+
+
+
+
+
+                var handler = new MqttApplicationMessageReceivedHandler();
+                _mqttClient.ApplicationMessageReceivedHandler = handler;
+
+                var r =await  _mqttClient.ConnectAsync(options); 
+                if (r.ResultCode == MQTTnet.Client.Connecting.MqttClientConnectResultCode.Success)
+                {
+                    var msgTopicFilter = new TopicFilterBuilder().WithTopic(MQTTTopic.Msg.ToString() + "-" + App.CurrentUser.Id)
+                       .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce).Build();
+
+                    var onlineTopicFilter = new TopicFilterBuilder().WithTopic(MQTTTopic.Online.ToString())
+                          .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce).Build();
+                    var offlineTopicFilter = new TopicFilterBuilder().WithTopic(MQTTTopic.Offline.ToString())
+                          .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce).Build();
+
+                    var currentOptions = new MqttClientSubscribeOptions();
+                    currentOptions.TopicFilters.Add(msgTopicFilter);
+                    currentOptions.TopicFilters.Add(onlineTopicFilter);
+                    currentOptions.TopicFilters.Add(offlineTopicFilter);
+                    var cancel = new CancellationToken();
+                    await _mqttClient.SubscribeAsync(currentOptions);
+                    return true;
+                }
+                else
+                {
+                    Toast_Android.Instance.ShortAlert("Server Error!");
+                    return false;
+                }
+                //r.Wait(cancel);
             }
             catch (Exception ex)
             {
 
+                Toast_Android.Instance.ShortAlert("Exception!");
+                return false;
             }
         }
 
@@ -82,9 +115,9 @@ namespace Content.Core
         {
             var msg = new MqttApplicationMessage()
             {
-                Topic = MQTTTopic.Msg.ToString() +"-"+ msgInfo.ReceiveId,
+                Topic = MQTTTopic.Msg.ToString() + "-" + msgInfo.ReceiveId,
                 Payload = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(msgInfo)),
-                QualityOfServiceLevel = MqttQualityOfServiceLevel.AtMostOnce,
+                QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce,
                 Retain = false
             };
             var cancel = new CancellationToken();
@@ -98,7 +131,7 @@ namespace Content.Core
             {
                 Topic = MQTTTopic.Register.ToString(),
                 Payload = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(userinfo)),
-                QualityOfServiceLevel = MqttQualityOfServiceLevel.AtMostOnce,
+                QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce,
                 Retain = false
             };
             var cancel = new CancellationToken();
@@ -111,7 +144,7 @@ namespace Content.Core
             {
                 Topic = MQTTTopic.Online.ToString(),
                 Payload = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(userinfo)),
-                QualityOfServiceLevel = MqttQualityOfServiceLevel.AtMostOnce,
+                QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce,
                 Retain = false
             };
             var cancel = new CancellationToken();
@@ -124,7 +157,7 @@ namespace Content.Core
             {
                 Topic = MQTTTopic.Offline.ToString(),
                 Payload = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(userinfo)),
-                QualityOfServiceLevel = MqttQualityOfServiceLevel.AtMostOnce,
+                QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce,
                 Retain = false
             };
             var cancel = new CancellationToken();

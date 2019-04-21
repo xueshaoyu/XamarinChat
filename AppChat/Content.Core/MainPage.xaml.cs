@@ -9,12 +9,14 @@ using Android.App;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Application = Xamarin.Forms.Application;
+using Chat.Model;
 
 namespace Content.Core
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : ContentPage
     {
+        HttpClientHelper client = new HttpClientHelper();
         private static MainPage instance;
         public static MainPage Instance
         {
@@ -31,19 +33,36 @@ namespace Content.Core
         private MainPage()
         {
             InitializeComponent();
+            var handler = MQTTHelper.Instance.MqttClient.ApplicationMessageReceivedHandler as MqttApplicationMessageReceivedHandler;
+            if (handler != null)
+            {
+                handler.ReceiveOnLine += Handler_ReceiveOnLine;
+
+                handler.ReceiveOffline += Handler_ReceiveOffline; ;
+            }
             Init();
+        }
+
+        private void Handler_ReceiveOffline(int obj)
+        {
+            var user = Users.FirstOrDefault(p => p.Id == obj);
+            user.Online = 0;
+        }
+
+        private void Handler_ReceiveOnLine(int obj)
+        {
+         var user=  Users.FirstOrDefault(p => p.Id == obj);
+            user.Online = 1;
         }
 
         public ObservableCollection<UserInfo> Users
         {
             get; set;
-        } = new ObservableCollection<UserInfo>();
-        private void Init()
+        }
+        private async void Init()
         {
-            Users.Add(new UserInfo { Name = "1" });
-            Users.Add(new UserInfo { Name = "11" });
-            Users.Add(new UserInfo { Name = "111" });
-            Users.Add(new UserInfo { Name = "1111" });
+            var users = await client.GetFrinds(App.CurrentUser);
+            Users= new ObservableCollection<UserInfo>(users);
             UserList.ItemsSource = Users;
         }
 
@@ -74,14 +93,19 @@ namespace Content.Core
 
         private void UserList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var item = e.SelectedItem as UserInfo;
-            if(item!=null)
-            Application.Current.MainPage = new NavigationPage(new ChatPage(item));
         }
 
         private void UserList_Refreshing(object sender, EventArgs e)
         {
             UserList.IsRefreshing = false;
+        }
+
+        private void UserList_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+
+            var item = e.Item as UserInfo;
+            if (item != null)
+                Application.Current.MainPage = new NavigationPage(new ChatPage(item));
         }
     }
 }

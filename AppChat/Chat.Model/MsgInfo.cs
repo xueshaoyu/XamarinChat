@@ -1,15 +1,14 @@
-﻿using System;
+﻿using Chat.Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Content.Core
+namespace Chat.Model
 {
-    public class MsgInfo
+    public class MsgInfo: ModelBase
     {
-        public string SendId { get; set; }
-        public string ReceiveId { get; set; }
+        public int SendId { get; set; }
+        public int ReceiveId { get; set; }
         public string Content { get; set; }
-
-       
     }
 }
