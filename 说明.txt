@@ -1,5 +1,6 @@
 开发工具
 1.visual studio 2017，安装vs时需要选中xamarin~
+2.Nuget管理第三方DLL
 
 目录结构
 1.Chat.Android ：Android程序的启动程序，会设置一些基本的配置信息
