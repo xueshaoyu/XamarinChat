@@ -14,56 +14,105 @@ namespace Content.Core
 
         public async Task<int> Register(UserInfo userInfo)
         {
-            var retuanObj = 0;
-            var content = new StringContent(JsonConvert.SerializeObject(userInfo),Encoding.UTF8);
-            var response = await client.PostAsync(App.UserPreferences.GetString(EnumUserPreferences.ServerAddress.ToString()) + "Register", content);
-            var txt = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<ExchangeData>(txt);
-            if (result.IsSuccess)
+            try
             {
-                int.TryParse(result.Data.ToString(), out retuanObj);
+                var retuanObj = 0;
+                var content = new StringContent(JsonConvert.SerializeObject(userInfo), Encoding.UTF8);
+                var response = await client.PostAsync(
+                    App.UserPreferences.GetString(EnumUserPreferences.ServerAddress.ToString()) + "Register", content);
+                var txt = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<ExchangeData>(txt);
+                if (result.IsSuccess)
+                {
+                    int.TryParse(result.Data.ToString(), out retuanObj);
+                }
+
+                return retuanObj;
             }
-            return retuanObj;
+            catch
+            {
+                return 0;
+            }
         }
         public async Task<int> Login(UserInfo userInfo)
         {
-            var retuanObj = 0;
-            var content = new StringContent(JsonConvert.SerializeObject(userInfo), Encoding.UTF8);
-            var response = await client.PostAsync(App.UserPreferences.GetString(EnumUserPreferences.ServerAddress.ToString()) + "Login", content);
-            var txt = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<ExchangeData>(txt);
-            if (result.IsSuccess)
+            try
             {
-                int.TryParse(result.Data.ToString(), out retuanObj);
+                var retuanObj = 0;
+                var content = new StringContent(JsonConvert.SerializeObject(userInfo), Encoding.UTF8);
+                var response = await client.PostAsync(
+                    App.UserPreferences.GetString(EnumUserPreferences.ServerAddress.ToString()) + "Login", content);
+                var txt = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<ExchangeData>(txt);
+                if (result.IsSuccess)
+                {
+                    int.TryParse(result.Data.ToString(), out retuanObj);
+                }
+
+                return retuanObj;
             }
-            return retuanObj;
+            catch
+            {
+                return 0;
+            }
         }
-        public async void Message(MsgInfo msgInfo)
+        public async Task<bool> Message(MsgInfo msgInfo)
         {
-            var content = new StringContent(JsonConvert.SerializeObject(msgInfo), Encoding.UTF8);
-            var response = await client.PostAsync(App.UserPreferences.GetString(EnumUserPreferences.ServerAddress.ToString()) + "Message", content);
+            try
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(msgInfo), Encoding.UTF8);
+                var response = await client.PostAsync(
+                    App.UserPreferences.GetString(EnumUserPreferences.ServerAddress.ToString()) + "Message", content);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
-        public async void Online(UserInfo userInfo)
+        public async Task<bool> Online(UserInfo userInfo)
         {
-            var content = new StringContent(JsonConvert.SerializeObject(userInfo), Encoding.UTF8);
-            var response = await client.PostAsync(App.UserPreferences.GetString(EnumUserPreferences.ServerAddress.ToString()) + "Online", content);
+            try
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(userInfo), Encoding.UTF8);
+                var response = await client.PostAsync(App.UserPreferences.GetString(EnumUserPreferences.ServerAddress.ToString()) + "Online", content);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
-        public async void Offline(UserInfo userInfo)
+        public async Task<bool> Offline(UserInfo userInfo)
         {
-            var content = new StringContent(JsonConvert.SerializeObject(userInfo), Encoding.UTF8);
-            var response = await client.PostAsync(App.UserPreferences.GetString(EnumUserPreferences.ServerAddress.ToString()) + "Offline", content);
+            try
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(userInfo), Encoding.UTF8);
+                var response = await client.PostAsync(App.UserPreferences.GetString(EnumUserPreferences.ServerAddress.ToString()) + "Offline", content);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
         public async Task<List<UserInfo>> GetFrinds(UserInfo userInfo)
         {
             var retuanObj = new List<UserInfo>();
-            var content = new StringContent(JsonConvert.SerializeObject(userInfo), Encoding.UTF8);
-            var response = await client.PostAsync(App.UserPreferences.GetString(EnumUserPreferences.ServerAddress.ToString()) + "Frinds", content);
-            var txt = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<ExchangeData>(txt);
-            if (result.IsSuccess)
+            try
             {
-                retuanObj = JsonConvert.DeserializeObject<List<UserInfo>>(result.Data.ToString());
+                var content = new StringContent(JsonConvert.SerializeObject(userInfo), Encoding.UTF8);
+                var response = await client.PostAsync(App.UserPreferences.GetString(EnumUserPreferences.ServerAddress.ToString()) + "Frinds", content);
+                var txt = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<ExchangeData>(txt);
+                if (result.IsSuccess)
+                {
+                    retuanObj = JsonConvert.DeserializeObject<List<UserInfo>>(result.Data.ToString());
+                }
+            }
+            catch
+            {
             }
             return retuanObj;
         }

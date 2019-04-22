@@ -113,56 +113,84 @@ namespace Content.Core
 
         public async Task<bool> SendMsg(MsgInfo msgInfo)
         {
-            var msg = new MqttApplicationMessage()
+            try
             {
-                Topic = MQTTTopic.Msg.ToString() + "-" + msgInfo.ReceiveId,
-                Payload = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(msgInfo)),
-                QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce,
-                Retain = false
-            };
-            var cancel = new CancellationToken();
-            var result = await _mqttClient.PublishAsync(msg, cancel);
-            return result.ReasonCode == MqttClientPublishReasonCode.Success;
+                var msg = new MqttApplicationMessage()
+                {
+                    Topic = MQTTTopic.Msg.ToString() + "-" + msgInfo.ReceiveId,
+                    Payload = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(msgInfo)),
+                    QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce,
+                    Retain = false
+                };
+                var cancel = new CancellationToken();
+                var result = await _mqttClient.PublishAsync(msg, cancel);
+                return result.ReasonCode == MqttClientPublishReasonCode.Success;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public async Task<bool> Register(UserInfo userinfo)
         {
-            var msg = new MqttApplicationMessage()
+            try
             {
-                Topic = MQTTTopic.Register.ToString(),
-                Payload = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(userinfo)),
-                QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce,
-                Retain = false
-            };
-            var cancel = new CancellationToken();
-            var result = await _mqttClient.PublishAsync(msg, cancel);
-            return result.ReasonCode == MqttClientPublishReasonCode.Success;
+                var msg = new MqttApplicationMessage()
+                {
+                    Topic = MQTTTopic.Register.ToString(),
+                    Payload = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(userinfo)),
+                    QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce,
+                    Retain = false
+                };
+                var cancel = new CancellationToken();
+                var result = await _mqttClient.PublishAsync(msg, cancel);
+                return result.ReasonCode == MqttClientPublishReasonCode.Success;
+            }
+            catch
+            {
+                return false;
+            }
         }
         public async Task<bool> Online(UserInfo userinfo)
         {
-            var msg = new MqttApplicationMessage()
+            try
             {
-                Topic = MQTTTopic.Online.ToString(),
-                Payload = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(userinfo)),
-                QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce,
-                Retain = false
-            };
-            var cancel = new CancellationToken();
-            var result = await _mqttClient.PublishAsync(msg, cancel);
-            return result.ReasonCode == 0;
+                var msg = new MqttApplicationMessage()
+                {
+                    Topic = MQTTTopic.Online.ToString(),
+                    Payload = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(userinfo)),
+                    QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce,
+                    Retain = false
+                };
+                var cancel = new CancellationToken();
+                var result = await _mqttClient.PublishAsync(msg, cancel);
+                return result.ReasonCode == 0;
+            }
+            catch
+            {
+                return false;
+            }
         }
         public async Task<bool> Offline(UserInfo userinfo)
         {
-            var msg = new MqttApplicationMessage()
+            try
             {
-                Topic = MQTTTopic.Offline.ToString(),
-                Payload = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(userinfo)),
-                QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce,
-                Retain = false
-            };
-            var cancel = new CancellationToken();
-            var result = await _mqttClient.PublishAsync(msg, cancel);
-            return result.ReasonCode == MqttClientPublishReasonCode.Success;
+                var msg = new MqttApplicationMessage()
+                {
+                    Topic = MQTTTopic.Offline.ToString(),
+                    Payload = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(userinfo)),
+                    QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce,
+                    Retain = false
+                };
+                var cancel = new CancellationToken();
+                var result = await _mqttClient.PublishAsync(msg, cancel);
+                return result.ReasonCode == MqttClientPublishReasonCode.Success;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
     /// <summary>

@@ -43,7 +43,7 @@ namespace Content.Core
             {
                 currentUser.Id = id;
                 App.UserPreferences.SetObj<UserInfo>(EnumUserPreferences.UserInfo.ToString(), currentUser);
-                client.Online(currentUser);
+                await client.Online(currentUser);
                 Toast_Android.Instance.ShortAlert("Login Successed!");
                 App.CurrentUser = currentUser;
               
