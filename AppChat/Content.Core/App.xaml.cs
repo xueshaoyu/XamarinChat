@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Android.App;
 using Chat.Model;
 using Xamarin.Forms;
@@ -42,13 +43,33 @@ namespace Content.Core
 
         public static void Exit()
         {
-            if (CurrentUser != null && CurrentUser.Id >0)
+            AlertDialog.Builder builder = new AlertDialog.Builder(App.MainActivity);
+            AlertDialog alertDialog = builder.Create();
+            alertDialog.SetTitle("Waring");
+            alertDialog.SetMessage("Confirmation of exit the App?");
+            alertDialog.SetButton("Yes",async (p1, p2) =>
             {
-                HttpClientHelper client = new HttpClientHelper();
-                client.Offline(CurrentUser);
+                if (CurrentUser != null && CurrentUser.Id > 0)
+                {
+                    HttpClientHelper client = new HttpClientHelper();
+                    client.Offline(CurrentUser);
+                    await MQTTHelper.Instance.Offline(CurrentUser);
+                    Thread.Sleep(50);
+                }
+                DependencyService.Get<ICloseAppService>().CloseApp();
 
-            }
-            Application.Current.Quit();
+            });
+            alertDialog.SetButton2("Cancel", (p1, p2) =>
+            {
+                // Application.Current.Quit();
+
+            });
+            //RunOnUiThread(()=
+            //{
+
+            //});
+            alertDialog.Show();
+            
         }
     }
 }

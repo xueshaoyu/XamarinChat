@@ -68,25 +68,8 @@ namespace Content.Core
 
         private void Exit_App_Clicked(object sender, EventArgs e)
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(App.MainActivity);
-            AlertDialog alertDialog = builder.Create();
-            alertDialog.SetTitle("Waring");
-            alertDialog.SetMessage("Confirmation of exit the App?");
-            alertDialog.SetButton("Yes", (p1, p2) =>
-            {
                 App.Exit();
-
-            });
-            alertDialog.SetButton2("Cancel", (p1, p2) =>
-            {
-                // Application.Current.Quit();
-
-            });
-            //RunOnUiThread(()=
-            //{
-
-            //});
-            alertDialog.Show();
+            
         }
 
 
