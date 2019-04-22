@@ -18,7 +18,7 @@ namespace MqttNetServer
         {
             if (!File.Exists(SQLiteHelper.dbFilePath))
             {                
-                InitDbHelper helper = new InitDbHelper();
+                var helper = new InitDbHelper();
                 helper.InitDb(SQLiteHelper.dbFilePath);
             }
             Application.EnableVisualStyles();
