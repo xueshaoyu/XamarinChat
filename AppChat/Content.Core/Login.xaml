@@ -5,6 +5,7 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Settings" Clicked="Settings_Clicked"/>
+        <ToolbarItem Text="Exit" Clicked="Exit_Clicked"/>
     </ContentPage.ToolbarItems>
     <Grid>
      <StackLayout x:Name="LoginArea">
@@ -32,13 +33,12 @@
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Text="Login" Clicked="Login_Button_Clicked" />
-            <Button Grid.Column="1" Text="Close" Clicked="Close_Button_Clicked" />
+                <Button Grid.Column="1" Text="Register" Clicked="Register_Button_Clicked" />
         </Grid>
-        <Button Text="Register" Clicked="Register_Button_Clicked" />
         </StackLayout>
         <StackLayout  x:Name="SettingArea" IsVisible="False">
             <Grid>

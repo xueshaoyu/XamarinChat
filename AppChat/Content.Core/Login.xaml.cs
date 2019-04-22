@@ -102,5 +102,10 @@ namespace Content.Core
             SettingArea.IsVisible = false;
             LoginArea.IsVisible = true;
         }
+
+        private void Exit_Clicked(object sender, EventArgs e)
+        {
+            App.Exit();
+        }
     }
 }

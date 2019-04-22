@@ -6,13 +6,17 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Content.Core;
+using Java.Lang;
+using Xamarin.Forms.Platform.Android;
 
 namespace Chat.Droid
 {
-    [Activity(Label = "Chat", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Chat", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true,
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         internal static MainActivity Instance { get; private set; }
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
@@ -26,14 +30,49 @@ namespace Chat.Droid
             var exist = App.UserPreferences.GetString(EnumUserPreferences.ServerAddress.ToString());
             if (exist == null || exist == "")
             {
-                App.UserPreferences.SetString(EnumUserPreferences.ServerAddress.ToString(), "http://192.168.0.150:7778/api/");
+                App.UserPreferences.SetString(EnumUserPreferences.ServerAddress.ToString(),
+                    "http://192.168.0.150:7778/api/");
                 App.UserPreferences.SetString(EnumUserPreferences.MqttServerIp.ToString(), "192.168.0.150");
                 App.UserPreferences.SetInt(EnumUserPreferences.MqttServerPort.ToString(), 7777);
             }
+
             var app = new App();
             LoadApplication(app);
             // MQTTHelper.Init();
         }
 
+        public override bool OnKeyDown([GeneratedEnum] Keycode keyCode, KeyEvent e)
+        {
+            if (keyCode == Keycode.Back)
+            {
+                Exit();
+                return false;
+            }
+
+            return base.OnKeyDown(keyCode, e);
+        }
+
+        bool isExit = false;
+
+
+        private Handler handler = new Handler(p =>
+        {
+            Instance.isExit = false;
+        });
+
+        public void Exit()
+        {
+            if (!isExit)
+            {
+                isExit = true;
+                Toast_Android.Instance.LongAlert("Click back button again to exit process!");
+                handler.SendEmptyMessageDelayed(0, 2000);
+            }
+            else
+            {
+                Finish();
+                System.Environment.Exit(0);
+            }
+        }
     }
 }
