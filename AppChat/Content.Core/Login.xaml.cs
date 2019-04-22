@@ -64,8 +64,7 @@ namespace Content.Core
 
         private void Register_Button_Clicked(object sender, EventArgs e)
         {
-
-            Application.Current.MainPage = Register.Instance;
+            Application.Current.MainPage = new NavigationPage(Register.Instance);
         }
 
         private void Settings_Clicked(object sender, EventArgs e)

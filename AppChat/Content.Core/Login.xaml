@@ -4,8 +4,8 @@
              x:Class="Content.Core.Login" Title="Login">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Settings" Clicked="Settings_Clicked"/>
-        <ToolbarItem Text="Exit" Clicked="Exit_Clicked"/>
+        <ToolbarItem Text="Settings" Clicked="Settings_Clicked" Order="Secondary"/>
+        <ToolbarItem Text="Exit" Clicked="Exit_Clicked" Order="Secondary"/>
     </ContentPage.ToolbarItems>
     <Grid>
      <StackLayout x:Name="LoginArea">

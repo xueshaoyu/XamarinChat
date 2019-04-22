@@ -52,7 +52,7 @@ namespace Content.Core
 
         private void Cancel_Button_Clicked(object sender, EventArgs e)
         {
-            Application.Current.MainPage = Login.Instance;
+            Application.Current.MainPage = new NavigationPage(Login.Instance);
         }
     }
 }
