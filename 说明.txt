@@ -1,22 +1,22 @@
-��������
-1.visual studio 2017����װvsʱ��Ҫѡ��xamarin~
-2.Nuget����������DLL
+开发工具
+1.visual studio 2017，安装vs时需要选中xamarin~
+2.Nuget管理第三方DLL
 
-Ŀ¼�ṹ
-1.Chat.Android ��Android������������򣬻�����һЩ������������Ϣ
-2.Chat.Model:ͨ��ʵ�彻���࣬���ڳ���֮������ݴ���
-3.Content.Core��app����չʾ���߼����ܣ����漰�Ĺ��ܶ��ڴ���Ŀ��
-4.MqttNetServer: MQtt����ˣ�������һ����������Http�����������ڽ���ע�����ݵȣ�
+目录结构
+1.Chat.Android ：Android程序的启动程序，会设置一些基本的配置信息
+2.Chat.Model:通用实体交换类，用于程序之间的数据传递
+3.Content.Core：app界面展示及逻辑功能，所涉及的功能都在此项目中
+4.MqttNetServer: MQtt服务端，还包含一个轻量级的Http服务器（用于接收注册数据等）
 
-���ݿ�
-1.���ݿ�ʹ��sqlite�����ݿ��ļ���MqttNetServer->SQLiteHelper.cs->dbFilePath�ֶΣ����û�����ݿ⣬���Զ��������ݿ��ļ�
+数据库
+1.数据库使用sqlite，数据库文件在MqttNetServer->SQLiteHelper.cs->dbFilePath字段，如果没有数据库，会自动添加数据库文件
 
-���
-1.����̳̣�https://blog.csdn.net/xsfqh/article/details/76974580
-ע�⣺
-�̳��� �����ӡ�  ����
-ѡ��  ��SDK ���� ��
+打包
+1.打包教程：https://blog.csdn.net/xsfqh/article/details/76974580
+注意：
+教程中 “链接”  步骤
+选择  “SDK 程序集 ”
 
-����
-1.���������MqttNetServer��Ŀ���ɵ�exe�ļ�����д������IP��ÿ���������з������Ҫ�ر�����,���´򿪡�
-2.�ֻ��˰�װ���д���ַ���apk�����ڵ�½ҳ�����Ͻǵ��Settings���ú÷�������Ϣ��һ��ֻ��Ҫ��IP������һ��һ�£����С�
+运行
+1.服务端运行MqttNetServer项目生成的exe文件，填写服务器IP，每次重新运行服务端需要关闭软件,重新打开。
+2.手机端安装运行打包分发的apk，并在登陆页面右上角点击Settings配置好服务器信息，一般只需要改IP（与上一步一致）就行。
