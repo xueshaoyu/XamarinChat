@@ -41,12 +41,12 @@ namespace Content.Core
             var id = await client.Register(currentUser);
             if (id > 0)
             {
-                Toast_Android.Instance.ShortAlert("Register Successed!");
+                ToastHelper.Instance.ShortAlert("Register Successed!");
                 Application.Current.MainPage = new NavigationPage(Login.Instance);
             }
             else
             {
-                Toast_Android.Instance.ShortAlert("Register Failed!");
+                ToastHelper.Instance.ShortAlert("Register Failed!");
             }
         }
 

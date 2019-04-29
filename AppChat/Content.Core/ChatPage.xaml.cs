@@ -113,7 +113,7 @@ namespace Content.Core
                 else
                 {
 
-                    Toast_Android.Instance.ShortAlert("Send Failed!");
+                    ToastHelper.Instance.ShortAlert("Send Failed!");
                 }
             }
         }

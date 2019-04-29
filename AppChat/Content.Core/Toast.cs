@@ -8,10 +8,10 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Content.Core; 
+using Content.Core;
+using Windows.UI.Notifications;
 using Xamarin.Forms;
   
-[assembly: Dependency(typeof(Toast_Android))]
 namespace Content.Core
 {
     public interface IToast
@@ -19,28 +19,41 @@ namespace Content.Core
         void LongAlert(string message);
         void ShortAlert(string message);
     }
-    public class Toast_Android : IToast
+    public static class ToastHelper
     {
-        private static Toast_Android instance;
-        public static Toast_Android Instance
+        private static IToast instance;
+        public static IToast Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new Toast_Android();
+                    
+                       instance = DependencyService.Get<IToast>();
                 }
 
                 return instance;
             }
         }
-        public void LongAlert(string message)
-        {
-            Toast.MakeText(Android.App.Application.Context, message, ToastLength.Long).Show();
+        public static void ShowToastMessage(this Xamarin.Forms.View view, string strMessage, bool bLong = false) {
+            if (bLong)
+            {
+                instance.LongAlert(strMessage);
+            }
+            else
+            {
+                instance.ShortAlert(strMessage);
+            }
         }
-        public void ShortAlert(string message)
-        {
-            Toast.MakeText(Android.App.Application.Context, message, ToastLength.Short).Show();
+        public static void ShowToastMessage(this Xamarin.Forms.ContentPage page, string strMessage, bool bLong = false) {
+            if (bLong)
+            {
+                instance.LongAlert(strMessage);
+            }
+            else
+            {
+                instance.ShortAlert(strMessage);
+            }
         }
     }
 }

@@ -98,7 +98,7 @@ namespace Content.Core
                 }
                 else
                 {
-                    Toast_Android.Instance.ShortAlert("Server Error!");
+                    ToastHelper.Instance.ShortAlert("Server Error!");
                     return false;
                 }
                 //r.Wait(cancel);
@@ -106,7 +106,7 @@ namespace Content.Core
             catch (Exception ex)
             {
 
-                Toast_Android.Instance.ShortAlert("Exception!");
+                ToastHelper.Instance.ShortAlert("Exception!");
                 return false;
             }
         }
