@@ -9,7 +9,6 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Content.Core;
-using Windows.UI.Notifications;
 using Xamarin.Forms;
   
 namespace Content.Core

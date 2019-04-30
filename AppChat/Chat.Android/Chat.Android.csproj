@@ -133,7 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Content.Core\Content.Core.csproj">
-      <Project>{EE9EA5C0-5205-4EB5-94DB-5A40F9589FF6}</Project>
+      <Project>{ee9ea5c0-5205-4eb5-94db-5a40f9589ff6}</Project>
       <Name>Content.Core</Name>
     </ProjectReference>
   </ItemGroup>
