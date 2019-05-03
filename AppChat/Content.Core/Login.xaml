@@ -1,43 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Content.Core.Login" Title="Login">
+             x:Class="Content.Core.Login" Title="登录">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Settings" Clicked="Settings_Clicked" Order="Secondary"/>
-        <ToolbarItem Text="Exit" Clicked="Exit_Clicked" Order="Secondary"/>
+        <ToolbarItem Text="设置" Clicked="Settings_Clicked" Order="Secondary"/>
+        <ToolbarItem Text="退出" Clicked="Exit_Clicked" Order="Secondary"/>
     </ContentPage.ToolbarItems>
     <Grid>
      <StackLayout x:Name="LoginArea">
-        <Label HorizontalOptions="CenterAndExpand" Text="Login" Margin="0,25"></Label>
+        <Label HorizontalOptions="CenterAndExpand" Text="登录" Margin="0,25"></Label>
         <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition Width="6*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Text="User Name: "
+                <Label Text="用户名: "
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-                <Editor Grid.Column="1" x:Name="UserName" Placeholder="Please Type User Name" />
+                <Editor Grid.Column="1" x:Name="UserName" Placeholder="请输入用户名" />
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition Width="6*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Text="Password: "
+                <Label Text="密 码: "
                    VerticalOptions="CenterAndExpand" 
                    HorizontalOptions="CenterAndExpand" />
                 
-                <Editor Grid.Column="1" x:Name="Password" Placeholder="Please Type Password"  />
+                <Editor Grid.Column="1" x:Name="Password" Placeholder="请输入密码"  />
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Text="Login" Clicked="Login_Button_Clicked" />
-                <Button Grid.Column="1" Text="Register" Clicked="Register_Button_Clicked" />
+            <Button Grid.Column="0" Text="登录" Clicked="Login_Button_Clicked" />
+                <Button Grid.Column="1" Text="注册" Clicked="Register_Button_Clicked" />
         </Grid>
         </StackLayout>
         <StackLayout  x:Name="SettingArea" IsVisible="False">
@@ -46,33 +46,33 @@
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition Width="6*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Text="ServerIp: "
+                <Label Text="服务器IP: "
                    VerticalOptions="CenterAndExpand" 
                    HorizontalOptions="CenterAndExpand" />
-                <Editor Grid.Column="1" x:Name="ServerIp" Placeholder="MQTT Server Ip"  />
+                <Editor Grid.Column="1" x:Name="ServerIp" Placeholder="MQTT服务器IP"  />
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition Width="6*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Text="ServerPort: "
+                <Label Text="服务器端口: "
                    VerticalOptions="CenterAndExpand" 
                    HorizontalOptions="CenterAndExpand" />
-                <Editor Grid.Column="1" x:Name="ServerPort" Placeholder="MQTT Server Port"  />
+                <Editor Grid.Column="1" x:Name="ServerPort" Placeholder="MQTT服务器端口"  />
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition Width="6*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Text="ServerApi: "
+                <Label Text="接口地址: "
                    VerticalOptions="CenterAndExpand" 
                    HorizontalOptions="CenterAndExpand" />
-                <Editor Grid.Column="1" x:Name="ServerApi" Placeholder="Web Api Address"  />
+                <Editor Grid.Column="1" x:Name="ServerApi" Placeholder="Web接口地址"  />
             </Grid>
-            <Button Text="Confirm" Clicked="Settings_Confirm_Clicked" />
-            <Button Text="Cancel" Clicked="Settings_Cancel_Clicked" />
+            <Button Text="确认" Clicked="Settings_Confirm_Clicked" />
+            <Button Text="取消" Clicked="Settings_Cancel_Clicked" />
         </StackLayout>
     </Grid>
 </ContentPage>

@@ -69,18 +69,24 @@ namespace MqttNetServer
             TxbPort.Enabled = true;
         }
 
-        ServerHelper Server = new ServerHelper();
+        ServerHelper Server;//= new ServerHelper();
         private void BtnStart_Click(object sender, EventArgs e)
         {
             MqttServer();
-            var task = Task.Run(() =>
-              {
-                  Server.Setup(7778);
-              });
+            HttpServer();
             BtnStart.Enabled = false;
             BtnStop.Enabled = true;
             TxbServer.Enabled = false;
             TxbPort.Enabled = false;
+        }
+        Task httpTask;
+        private void HttpServer()
+        {
+            Server = new ServerHelper();
+            httpTask = Task.Run(() =>
+            {
+                Server.Setup(7778);
+            });
         }
 
         private void BtnStop_Click(object sender, EventArgs e)
@@ -93,11 +99,15 @@ namespace MqttNetServer
                 }
                 _mqttServer.StopAsync();
                 _mqttServer = null;
+               
             }
-            var task = Task.Run(() =>
-            {
-                Server.Stop();
-            });
+            Server.Stop();
+            //var task = Task.Run(() =>
+            //{
+            //    Server.Stop();
+            //});
+            httpTask.Wait(1);
+
             BtnStart.Enabled = true;
             BtnStop.Enabled = false;
             TxbServer.Enabled = true;

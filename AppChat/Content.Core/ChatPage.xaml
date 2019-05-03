@@ -47,8 +47,8 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </StackLayout>
-            <Editor x:Name="SendMsg" Grid.Row="1" Grid.Column="0" Placeholder="please input you message here"></Editor>
-            <Button Grid.Row="1" Grid.Column="1" Text="Send" Clicked="SendMsg_Button_Clicked" />
+            <Editor x:Name="SendMsg" Grid.Row="1" Grid.Column="0" Placeholder="请在这里输入您的信息"></Editor>
+            <Button Grid.Row="1" Grid.Column="1" Text="发送" Clicked="SendMsg_Button_Clicked" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>
