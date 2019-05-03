@@ -45,9 +45,9 @@ namespace Content.Core
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(App.MainActivity);
             AlertDialog alertDialog = builder.Create();
-            alertDialog.SetTitle("Waring");
-            alertDialog.SetMessage("Confirmation of exit the App?");
-            alertDialog.SetButton("Yes", async (p1, p2) =>
+            alertDialog.SetTitle("提示");
+            alertDialog.SetMessage("是否确认退出应用程序？");
+            alertDialog.SetButton("是", async (p1, p2) =>
              {
                  if (CurrentUser != null && CurrentUser.Id > 0)
                  {
@@ -59,7 +59,7 @@ namespace Content.Core
                  DependencyService.Get<ICloseAppService>().CloseApp();
 
              });
-            alertDialog.SetButton2("Cancel", (p1, p2) =>
+            alertDialog.SetButton2("否", (p1, p2) =>
             {
                 // Application.Current.Quit();
 

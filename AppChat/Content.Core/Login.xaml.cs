@@ -44,7 +44,7 @@ namespace Content.Core
                 currentUser.Id = id;
                 App.UserPreferences.SetObj<UserInfo>(EnumUserPreferences.UserInfo.ToString(), currentUser);
                 await client.Online(currentUser);
-                Toast_Android.Instance.ShortAlert("Login Successed!");
+                Toast_Android.Instance.ShortAlert("登录成功!");
                 App.CurrentUser = currentUser;
               
             
@@ -53,7 +53,7 @@ namespace Content.Core
             }
             else
             {
-                Toast_Android.Instance.ShortAlert("Login Failed!");
+                Toast_Android.Instance.ShortAlert("登录失败!");
             }
         }
 
@@ -86,13 +86,13 @@ namespace Content.Core
                 App.UserPreferences.SetString(EnumUserPreferences.MqttServerIp.ToString(), ServerIp.Text);
                 App.UserPreferences.SetInt(EnumUserPreferences.MqttServerPort.ToString(), Convert.ToInt32(ServerPort.Text));
 
-                Toast_Android.Instance.ShortAlert("Set Successed!");
+                Toast_Android.Instance.ShortAlert("设置成功!");
                 SettingArea.IsVisible = false;
                 LoginArea.IsVisible = true;
             }
             catch
             {
-                Toast_Android.Instance.ShortAlert("Set Failed!");
+                Toast_Android.Instance.ShortAlert("设置失败!");
             }
         }
 

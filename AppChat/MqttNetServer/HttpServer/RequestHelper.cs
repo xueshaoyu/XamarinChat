@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace MqttNetServer
 {
+    /// <summary>
+    /// HTTP网络请求帮助类
+    /// </summary>
     public class RequestHelper
     {
         private HttpListenerRequest request;

@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace MqttNetServer
 {
+    /// <summary>
+    /// HTTP网络回应帮助类
+    /// </summary>
     public class ResponseHelper
     {
         private HttpListenerResponse response;

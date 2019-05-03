@@ -14,11 +14,17 @@ using Xamarin.Forms;
 [assembly: Dependency(typeof(Toast_Android))]
 namespace Content.Core
 {
+    /// <summary>
+    /// 提示接口
+    /// </summary>
     public interface IToast
     {
         void LongAlert(string message);
         void ShortAlert(string message);
     }
+    /// <summary>
+    /// android 提示方法实现
+    /// </summary>
     public class Toast_Android : IToast
     {
         private static Toast_Android instance;

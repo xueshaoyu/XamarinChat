@@ -15,6 +15,9 @@ using Xamarin.Forms;
 [assembly: Dependency(typeof(ImpDroidCloseAppService))]
 namespace Content.Core
 {
+    /// <summary>
+    /// Android关闭app接口实现
+    /// </summary>
     public class ImpDroidCloseAppService : ICloseAppService
     {
         public void CloseApp()

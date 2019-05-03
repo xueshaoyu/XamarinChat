@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace MqttNetServer
 {
+    /// <summary>
+    /// sqllite帮助类
+    /// </summary>
     public static class SQLiteHelper
     {
         public static string dbFilePath = Application.StartupPath + "\\" + System.Configuration.ConfigurationSettings.AppSettings["DbName"];

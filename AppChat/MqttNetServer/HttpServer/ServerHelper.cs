@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace MqttNetServer
 {
+    /// <summary>
+    /// 轻量级HTTP网络服务器
+    /// </summary>
     public class ServerHelper
     {
         HttpListener httpListener = new HttpListener();

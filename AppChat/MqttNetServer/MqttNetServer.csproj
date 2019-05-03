@@ -114,7 +114,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataCache.cs" />
     <Compile Include="FrmMqttServer.cs">
       <SubType>Form</SubType>
     </Compile>

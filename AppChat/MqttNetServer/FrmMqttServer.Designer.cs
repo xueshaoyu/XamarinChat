@@ -84,17 +84,17 @@
             // 
             // BtnStop
             // 
-            this.BtnStop.Location = new System.Drawing.Point(333, 4);
+            this.BtnStop.Location = new System.Drawing.Point(385, 4);
             this.BtnStop.Name = "BtnStop";
             this.BtnStop.Size = new System.Drawing.Size(75, 28);
             this.BtnStop.TabIndex = 5;
-            this.BtnStop.Text = "Stop";
+            this.BtnStop.Text = "停止";
             this.BtnStop.UseVisualStyleBackColor = true;
             this.BtnStop.Click += new System.EventHandler(this.BtnStop_Click);
             // 
             // TxbPort
             // 
-            this.TxbPort.Location = new System.Drawing.Point(191, 9);
+            this.TxbPort.Location = new System.Drawing.Point(243, 9);
             this.TxbPort.Name = "TxbPort";
             this.TxbPort.Size = new System.Drawing.Size(44, 21);
             this.TxbPort.TabIndex = 4;
@@ -103,15 +103,15 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(156, 14);
+            this.label2.Location = new System.Drawing.Point(208, 14);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 12);
+            this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Port";
+            this.label2.Text = "端口：";
             // 
             // TxbServer
             // 
-            this.TxbServer.Location = new System.Drawing.Point(50, 9);
+            this.TxbServer.Location = new System.Drawing.Point(74, 8);
             this.TxbServer.Name = "TxbServer";
             this.TxbServer.Size = new System.Drawing.Size(100, 21);
             this.TxbServer.TabIndex = 2;
@@ -121,17 +121,17 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 14);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 12);
+            this.label1.Size = new System.Drawing.Size(65, 12);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Server";
+            this.label1.Text = "服务器IP：";
             // 
             // BtnStart
             // 
-            this.BtnStart.Location = new System.Drawing.Point(252, 3);
+            this.BtnStart.Location = new System.Drawing.Point(304, 3);
             this.BtnStart.Name = "BtnStart";
             this.BtnStart.Size = new System.Drawing.Size(75, 28);
             this.BtnStart.TabIndex = 0;
-            this.BtnStart.Text = "Start";
+            this.BtnStart.Text = "开始";
             this.BtnStart.UseVisualStyleBackColor = true;
             this.BtnStart.Click += new System.EventHandler(this.BtnStart_Click);
             // 
@@ -161,7 +161,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.panel1);
             this.Name = "FrmMqttServer";
-            this.Text = "MqttServer";
+            this.Text = "Mqtt与接口服务器";
             this.Load += new System.EventHandler(this.FrmMqttServer_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);

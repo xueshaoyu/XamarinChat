@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Chat.Model
 {
+    /// <summary>
+    /// 用户模型
+    /// </summary>
     public class UserInfo:ModelBase
     {
         public string Name { get; set; }

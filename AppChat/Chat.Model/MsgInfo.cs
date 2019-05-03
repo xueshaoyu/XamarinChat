@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Chat.Model
 {
+    /// <summary>
+    /// 消息模型
+    /// </summary>
     public class MsgInfo: ModelBase
     {
         public int SendId { get; set; }

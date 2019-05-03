@@ -11,7 +11,7 @@ namespace MqttNetServer
     static class Program
     {
         /// <summary>
-        /// Main Entry。
+        /// 主入口。
         /// </summary>
         [STAThread]
         static void Main()

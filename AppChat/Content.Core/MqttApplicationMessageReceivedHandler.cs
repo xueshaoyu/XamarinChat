@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Content.Core
 {
+    /// <summary>
+    /// MQTT消息接收处理类
+    /// </summary>
     public class MqttApplicationMessageReceivedHandler : IMqttApplicationMessageReceivedHandler
     {
         public event Action<string> ReceiveMsg;

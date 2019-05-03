@@ -15,6 +15,9 @@ using Newtonsoft.Json;
 
 namespace Content.Core
 {
+    /// <summary>
+    /// MQTT帮助类
+    /// </summary>
     public class MQTTHelper
     {
         private static MQTTHelper instance;
@@ -64,15 +67,8 @@ namespace Content.Core
                 options.CleanSession = true;
                 options.KeepAlivePeriod = TimeSpan.FromSeconds(100.5);
                 options.KeepAliveSendInterval = TimeSpan.FromSeconds(20000);
-
-
                 if (_mqttClient == null)
                 { _mqttClient = new MqttFactory().CreateMqttClient(); }
-
-
-
-
-
 
                 var handler = new MqttApplicationMessageReceivedHandler();
                 _mqttClient.ApplicationMessageReceivedHandler = handler;
@@ -98,7 +94,7 @@ namespace Content.Core
                 }
                 else
                 {
-                    Toast_Android.Instance.ShortAlert("Server Error!");
+                    Toast_Android.Instance.ShortAlert("服务器错误!");
                     return false;
                 }
                 //r.Wait(cancel);
@@ -106,11 +102,15 @@ namespace Content.Core
             catch (Exception ex)
             {
 
-                Toast_Android.Instance.ShortAlert("Exception!");
+                Toast_Android.Instance.ShortAlert("异常!");
                 return false;
             }
         }
-
+        /// <summary>
+        /// 发送消息到MQTT
+        /// </summary>
+        /// <param name="msgInfo"></param>
+        /// <returns></returns>
         public async Task<bool> SendMsg(MsgInfo msgInfo)
         {
             try
@@ -131,7 +131,11 @@ namespace Content.Core
                 return false;
             }
         }
-
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <param name="userinfo"></param>
+        /// <returns></returns>
         public async Task<bool> Register(UserInfo userinfo)
         {
             try
@@ -152,6 +156,11 @@ namespace Content.Core
                 return false;
             }
         }
+        /// <summary>
+        /// 上线
+        /// </summary>
+        /// <param name="userinfo"></param>
+        /// <returns></returns>
         public async Task<bool> Online(UserInfo userinfo)
         {
             try
@@ -172,6 +181,11 @@ namespace Content.Core
                 return false;
             }
         }
+        /// <summary>
+        /// 离线
+        /// </summary>
+        /// <param name="userinfo"></param>
+        /// <returns></returns>
         public async Task<bool> Offline(UserInfo userinfo)
         {
             try
@@ -194,15 +208,24 @@ namespace Content.Core
         }
     }
     /// <summary>
-    /// Topic Category
+    /// MQTT消息主题枚举
     /// </summary>
     public enum MQTTTopic
     {
+        /// <summary>
+        /// 注册
+        /// </summary>
         Register,
+        /// <summary>
+        /// 在线
+        /// </summary>
         Online,
+        /// <summary>
+        /// 离线
+        /// </summary>
         Offline,
         /// <summary>
-        /// Only subscribe my msg topic，topic name is 【Msg-'userid'】
+        /// 只订阅我的消息主题，主题名称为 【Msg-'userid'】
         /// </summary>
         Msg
     }

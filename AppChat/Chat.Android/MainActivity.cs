@@ -65,7 +65,7 @@ namespace Chat.Droid
             if (!isExit)
             {
                 isExit = true;
-                Toast_Android.Instance.LongAlert("Click back button again to exit process!");
+                Toast_Android.Instance.LongAlert("再次点击返回按钮退出进程！");
                 handler.SendEmptyMessageDelayed(0, 2000);
             }
             else

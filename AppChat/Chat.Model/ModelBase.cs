@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Chat.Model
 {
+    /// <summary>
+    /// 数据模型基类
+    /// </summary>
     public class ModelBase: INotifyPropertyChanged
     {
         public ModelBase()

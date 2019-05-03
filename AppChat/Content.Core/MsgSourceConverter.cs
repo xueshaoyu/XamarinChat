@@ -6,6 +6,9 @@ using Xamarin.Forms;
 
 namespace Content.Core
 {
+    /// <summary>
+    /// 消息来源转换器
+    /// </summary>
     public class MsgSourceConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

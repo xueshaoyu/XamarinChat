@@ -10,13 +10,13 @@ using System.Threading.Tasks;
     namespace MqttNetServer
     {
         /// <summary>
-        /// Helepr
+        /// 数据库初始化帮助类
         /// </summary>
         public class InitDbHelper
         {
             private string dbPath;
             /// <summary>
-            /// Init Db Stuct
+            /// 初始化数据库结构
             /// </summary>
             /// <param name="dbPath"></param>
             public void InitDb(string dbPath)

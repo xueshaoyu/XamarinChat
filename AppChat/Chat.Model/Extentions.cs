@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Chat.Model
 {
+    /// <summary>
+    /// 时间扩展类
+    /// </summary>
     public static class Extentions
     {
         public static int ToTimeStamp(this System.DateTime time)

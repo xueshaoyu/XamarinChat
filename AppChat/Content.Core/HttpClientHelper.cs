@@ -8,10 +8,18 @@ using System.Threading.Tasks;
 
 namespace Content.Core
 {
+    /// <summary>
+    /// 网络帮助类库
+    /// </summary>
     public class HttpClientHelper
     {
         HttpClient client = new HttpClient();
 
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
         public async Task<int> Register(UserInfo userInfo)
         {
             try
@@ -34,6 +42,11 @@ namespace Content.Core
                 return 0;
             }
         }
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
         public async Task<int> Login(UserInfo userInfo)
         {
             try
@@ -56,6 +69,11 @@ namespace Content.Core
                 return 0;
             }
         }
+        /// <summary>
+        /// 发送消息
+        /// </summary>
+        /// <param name="msgInfo"></param>
+        /// <returns></returns>
         public async Task<bool> Message(MsgInfo msgInfo)
         {
             try
@@ -70,7 +88,11 @@ namespace Content.Core
                 return false;
             }
         }
-
+        /// <summary>
+        /// 上线
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
         public async Task<bool> Online(UserInfo userInfo)
         {
             try
@@ -84,6 +106,11 @@ namespace Content.Core
                 return false;
             }
         }
+        /// <summary>
+        /// 离线
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
         public async Task<bool> Offline(UserInfo userInfo)
         {
             try
@@ -97,6 +124,12 @@ namespace Content.Core
                 return false;
             }
         }
+
+        /// <summary>
+        /// 获取好友列表
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
         public async Task<List<UserInfo>> GetFrinds(UserInfo userInfo)
         {
             var retuanObj = new List<UserInfo>();

@@ -31,7 +31,7 @@ namespace Content.Core
         {
             InitializeComponent();
             RemoteUser = remoteUser;
-            this.Title = $"Chat with [{remoteUser.Name}]";
+            this.Title = $"正在与[{remoteUser.Name}]聊天…";
             MsgList.ItemsSource = Messages;
             MsgList.Refreshing += MsgList_Refreshing;
             var handler = MQTTHelper.Instance.MqttClient.ApplicationMessageReceivedHandler as MqttApplicationMessageReceivedHandler;
@@ -113,7 +113,7 @@ namespace Content.Core
                 else
                 {
 
-                    Toast_Android.Instance.ShortAlert("Send Failed!");
+                    Toast_Android.Instance.ShortAlert("发送失败!");
                 }
             }
         }

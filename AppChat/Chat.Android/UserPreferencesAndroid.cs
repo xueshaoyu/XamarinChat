@@ -19,7 +19,11 @@ namespace Chat.Droid
         public UserPreferencesAndroid()
         {
         }
-
+        /// <summary>
+        /// 设置字符串到本地存储
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
 
         public void SetString(string key, string value)
         {
@@ -29,20 +33,32 @@ namespace Chat.Droid
             prefsEditor.PutString(key, value);
             prefsEditor.Commit();
         }
-
+        /// <summary>
+        /// 获取本地存储的字符串
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public string GetString(string key)
         {
             var prefs = Application.Context.GetSharedPreferences("MySharedPrefs", FileCreationMode.Private);
             return prefs.GetString(key, "");
 
         }
-
+        /// <summary>
+        /// 删除本地存储值
+        /// </summary>
+        /// <param name="key"></param>
         public void DeleteString(string key)
         {
             var prefs = Application.Context.GetSharedPreferences("MySharedPrefs", FileCreationMode.Private);
             prefs.Edit().Remove(key).Commit();
         }
-
+        /// <summary>
+        /// 设置值到本地存储
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="obj"></param>
         public void SetObj<T>(string key, T obj)
         {
             if (obj is string)
@@ -55,6 +71,12 @@ namespace Chat.Droid
                 SetString(key, str);
             }
         }
+        /// <summary>
+        /// 获取本地存储值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public T GetObj<T>(string key)
         {
             try
@@ -69,6 +91,11 @@ namespace Chat.Droid
             }
 
         }
+        /// <summary>
+        /// 设置本地存储的int值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
 
         public void SetInt(string key, int value)
         {
@@ -78,7 +105,11 @@ namespace Chat.Droid
             prefsEditor.PutInt(key, value);
             prefsEditor.Commit();
         }
-
+        /// <summary>
+        /// 获取本地存储的int值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public int GetInt(string key)
         {
             var prefs = Application.Context.GetSharedPreferences("MySharedPrefs", FileCreationMode.Private);
