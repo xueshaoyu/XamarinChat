@@ -8,7 +8,9 @@
         <core:PositionSourceConverter x:Key="PositionSourceConverter"></core:PositionSourceConverter>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Back" Clicked="Back_MainPage"/>
+        <ToolbarItem Text="订阅" Clicked="SubMsg_MainPage"/>
+        <ToolbarItem Text="退订" Clicked="UnsubMsg_MainPage"/>
+        <ToolbarItem Text="返回" Clicked="Back_MainPage"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid>

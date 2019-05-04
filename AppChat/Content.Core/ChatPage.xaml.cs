@@ -41,6 +41,29 @@ namespace Content.Core
             }
 
         }
+        /// <summary>
+        /// 订阅
+        /// </summary>
+
+        private async void SubscribeAsync()
+        {
+            var msgTopicFilter = new TopicFilterBuilder().WithTopic(MQTTTopic.Msg.ToString() + "-" + App.CurrentUser.Id)
+                       .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce).Build();
+            var mqttClientSubscribeOptions = new MqttClientSubscribeOptions();
+            mqttClientSubscribeOptions.TopicFilters.Add(msgTopicFilter);
+            var cancel = new CancellationToken();
+            await MQTTHelper.Instance.MqttClient.SubscribeAsync(mqttClientSubscribeOptions, cancel);
+        }
+        /// <summary>
+        /// 退订
+        /// </summary>
+        private async void UnsubscribeAsync()
+        {
+            var mqttClientUnsubscribeOptions = new MqttClientUnsubscribeOptions();
+            mqttClientUnsubscribeOptions.TopicFilters.Add(MQTTTopic.Msg.ToString() + "-" + App.CurrentUser.Id);
+            var cancel = new CancellationToken();
+            await MQTTHelper.Instance.MqttClient.UnsubscribeAsync(mqttClientUnsubscribeOptions, cancel);
+        }
 
         private void MsgList_Refreshing(object sender, EventArgs e)
         {
@@ -116,6 +139,16 @@ namespace Content.Core
                     Toast_Android.Instance.ShortAlert("发送失败!");
                 }
             }
+        }
+
+        private  void SubMsg_MainPage(object sender, EventArgs e)
+        {
+             SubscribeAsync();
+        }
+
+        private  void UnsubMsg_MainPage(object sender, EventArgs e)
+        {
+            UnsubscribeAsync();
         }
     }
 }

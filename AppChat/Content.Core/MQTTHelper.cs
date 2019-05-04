@@ -76,8 +76,8 @@ namespace Content.Core
                 var r =await  _mqttClient.ConnectAsync(options); 
                 if (r.ResultCode == MQTTnet.Client.Connecting.MqttClientConnectResultCode.Success)
                 {
-                    var msgTopicFilter = new TopicFilterBuilder().WithTopic(MQTTTopic.Msg.ToString() + "-" + App.CurrentUser.Id)
-                       .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce).Build();
+                    //var msgTopicFilter = new TopicFilterBuilder().WithTopic(MQTTTopic.Msg.ToString() + "-" + App.CurrentUser.Id)
+                    //   .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce).Build();
 
                     var onlineTopicFilter = new TopicFilterBuilder().WithTopic(MQTTTopic.Online.ToString())
                           .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce).Build();
@@ -85,7 +85,8 @@ namespace Content.Core
                           .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce).Build();
 
                     var currentOptions = new MqttClientSubscribeOptions();
-                    currentOptions.TopicFilters.Add(msgTopicFilter);
+                    //currentOptions.TopicFilters.Add(msgTopicFilter);
+                    //currentOptions.TopicFilters.Remove(msgTopicFilter);
                     currentOptions.TopicFilters.Add(onlineTopicFilter);
                     currentOptions.TopicFilters.Add(offlineTopicFilter);
                     var cancel = new CancellationToken();
