@@ -48,7 +48,7 @@ namespace Content.Core
         private async void SubscribeAsync()
         {
             var msgTopicFilter = new TopicFilterBuilder().WithTopic(MQTTTopic.Msg.ToString() + "-" + App.CurrentUser.Id)
-                       .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce).Build();
+                       .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce).Build();
             var mqttClientSubscribeOptions = new MqttClientSubscribeOptions();
             mqttClientSubscribeOptions.TopicFilters.Add(msgTopicFilter);
             var cancel = new CancellationToken();
@@ -126,7 +126,7 @@ namespace Content.Core
                 msgInfo.ReceiveId = RemoteUser.Id;
                 msgInfo.SendId = App.CurrentUser.Id;
                 var result = await MQTTHelper.Instance.SendMsg(msgInfo);
-                client.Message(msgInfo);
+               await client.Message(msgInfo);
                 if (result)
                 {
                     SendMsg.Text = "";

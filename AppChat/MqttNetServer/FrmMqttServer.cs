@@ -122,15 +122,18 @@ namespace MqttNetServer
             }
 
             var optionBuilder =
-                new MqttServerOptionsBuilder().WithConnectionBacklog(1000).WithDefaultEndpointPort(Convert.ToInt32(TxbPort.Text));
+                new MqttServerOptionsBuilder().WithConnectionBacklog(1000).WithPersistentSessions().WithDefaultEndpointPort(Convert.ToInt32(TxbPort.Text));
 
             if (!TxbServer.Text.IsNullOrEmpty())
             {
                 optionBuilder.WithDefaultEndpointBoundIPAddress(IPAddress.Parse(TxbServer.Text));
             }
 
-            var options = optionBuilder.Build();
-
+            //MqttServerOptions options = new MqttServerOptions();
+            //options.EnablePersistentSessions = true;
+           var options = optionBuilder.Build();
+         // var   options.PairWith(option);
+         //var sessiongs=   options.EnablePersistentSessions;
             (options as MqttServerOptions).ConnectionValidator += context =>
             {
                 if (context.ClientId.Length < 10)
@@ -152,7 +155,7 @@ namespace MqttNetServer
 
             };
 
-            _mqttServer = new MqttFactory().CreateMqttServer();
+            _mqttServer = new MqttFactory().CreateMqttServer(); 
             _mqttServer.ClientConnected += (sender, args) =>
             {
                 listBox1.BeginInvoke(_updateListBoxAction, $">Client Connected:ClientId:{args.ClientId},ProtocalVersion:");

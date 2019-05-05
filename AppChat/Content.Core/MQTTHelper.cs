@@ -80,9 +80,9 @@ namespace Content.Core
                     //   .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce).Build();
 
                     var onlineTopicFilter = new TopicFilterBuilder().WithTopic(MQTTTopic.Online.ToString())
-                          .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce).Build();
+                          .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce).Build();
                     var offlineTopicFilter = new TopicFilterBuilder().WithTopic(MQTTTopic.Offline.ToString())
-                          .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce).Build();
+                          .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce).Build();
 
                     var currentOptions = new MqttClientSubscribeOptions();
                     //currentOptions.TopicFilters.Add(msgTopicFilter);
@@ -120,7 +120,7 @@ namespace Content.Core
                 {
                     Topic = MQTTTopic.Msg.ToString() + "-" + msgInfo.ReceiveId,
                     Payload = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(msgInfo)),
-                    QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce,
+                    QualityOfServiceLevel = MqttQualityOfServiceLevel.AtLeastOnce,
                     Retain = false
                 };
                 var cancel = new CancellationToken();
@@ -145,7 +145,7 @@ namespace Content.Core
                 {
                     Topic = MQTTTopic.Register.ToString(),
                     Payload = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(userinfo)),
-                    QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce,
+                    QualityOfServiceLevel = MqttQualityOfServiceLevel.AtLeastOnce,
                     Retain = false
                 };
                 var cancel = new CancellationToken();
@@ -170,7 +170,7 @@ namespace Content.Core
                 {
                     Topic = MQTTTopic.Online.ToString(),
                     Payload = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(userinfo)),
-                    QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce,
+                    QualityOfServiceLevel = MqttQualityOfServiceLevel.AtLeastOnce,
                     Retain = false
                 };
                 var cancel = new CancellationToken();
@@ -195,7 +195,7 @@ namespace Content.Core
                 {
                     Topic = MQTTTopic.Offline.ToString(),
                     Payload = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(userinfo)),
-                    QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce,
+                    QualityOfServiceLevel = MqttQualityOfServiceLevel.AtLeastOnce,
                     Retain = false
                 };
                 var cancel = new CancellationToken();
