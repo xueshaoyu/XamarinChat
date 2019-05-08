@@ -99,7 +99,7 @@ namespace MqttNetServer
                 }
                 _mqttServer.StopAsync();
                 _mqttServer = null;
-               
+
             }
             Server.Stop();
             //var task = Task.Run(() =>
@@ -131,9 +131,9 @@ namespace MqttNetServer
 
             //MqttServerOptions options = new MqttServerOptions();
             //options.EnablePersistentSessions = true;
-           var options = optionBuilder.Build();
-         // var   options.PairWith(option);
-         //var sessiongs=   options.EnablePersistentSessions;
+            var options = optionBuilder.Build();
+            // var   options.PairWith(option);
+            //var sessiongs=   options.EnablePersistentSessions;
             (options as MqttServerOptions).ConnectionValidator += context =>
             {
                 if (context.ClientId.Length < 10)
@@ -155,20 +155,20 @@ namespace MqttNetServer
 
             };
 
-            _mqttServer = new MqttFactory().CreateMqttServer(); 
+            _mqttServer = new MqttFactory().CreateMqttServer();
             _mqttServer.ClientConnected += (sender, args) =>
             {
                 listBox1.BeginInvoke(_updateListBoxAction, $">Client Connected:ClientId:{args.ClientId},ProtocalVersion:");
 
-                var s = _mqttServer.GetClientSessionsStatusAsync();
-                label3.BeginInvoke(new Action(() => { label3.Text = $"Total Count：{s.Result.Count}"; }));
+                var s = _mqttServer.GetClientSessionsStatus();
+                label3.BeginInvoke(new Action(() => { label3.Text = $"Total Count：{s.Count}"; }));
             };
 
             _mqttServer.ClientDisconnected += (sender, args) =>
             {
                 listBox1.BeginInvoke(_updateListBoxAction, $"<Client DisConnected:ClientId:{args.ClientId}");
-                var s = _mqttServer.GetClientSessionsStatusAsync();
-                label3.BeginInvoke(new Action(() => { label3.Text = $"Total Count：{s.Result.Count}"; }));
+                var s = _mqttServer.GetClientSessionsStatus();
+                label3.BeginInvoke(new Action(() => { label3.Text = $"Total Count：{s.Count}"; }));
             };
 
             _mqttServer.ApplicationMessageReceived += (sender, args) =>
@@ -204,7 +204,14 @@ namespace MqttNetServer
         private async void btnPublish_Click(object sender, EventArgs e)
         {
             //发布系统消息
-          await  _mqttServer.PublishAsync(txtTopicName.Text,txtNoticeContent.Text);
+            if (cbbQos.Text.IsNullOrEmpty())
+            {
+                MessageBox.Show("请先选择Qos等级");
+                return;
+            }
+
+            var qos = (MqttQualityOfServiceLevel)Enum.Parse(typeof(MqttQualityOfServiceLevel), cbbQos.Text);
+            await _mqttServer.PublishAsync(txtTopicName.Text, txtNoticeContent.Text, qos);
         }
     }
 }

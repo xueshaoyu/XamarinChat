@@ -17,10 +17,16 @@ namespace Content.Core
         public event Action<string> ReceiveMsg;
         public event Action<int> ReceiveOnLine;
         public event Action<int> ReceiveOffline;
+        public event Action<string> SystemNotice;
         public async Task HandleApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs eventArgs)
         {
             var topic = eventArgs.ApplicationMessage.Topic;
-            if (topic == MQTTTopic.Msg.ToString() + "-" + App.CurrentUser.Id)
+            if (topic == MQTTTopic.SystemNotice.ToString())
+            {
+                var content = Encoding.UTF8.GetString(eventArgs.ApplicationMessage.Payload);
+                SystemNotice?.Invoke(content);
+            }
+           else if (topic == MQTTTopic.Msg.ToString() + "-" + App.CurrentUser.Id)
             {
                 var content = Encoding.UTF8.GetString(eventArgs.ApplicationMessage.Payload);
                 ReceiveMsg?.Invoke(content);

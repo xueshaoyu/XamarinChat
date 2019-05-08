@@ -30,6 +30,11 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtTopicName = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.btnPublish = new System.Windows.Forms.Button();
+            this.txtNoticeContent = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.BtnStop = new System.Windows.Forms.Button();
             this.TxbPort = new System.Windows.Forms.TextBox();
@@ -39,11 +44,8 @@
             this.BtnStart = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.txtNoticeContent = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.btnPublish = new System.Windows.Forms.Button();
-            this.txtTopicName = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cbbQos = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -66,6 +68,8 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.cbbQos);
+            this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.txtTopicName);
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.btnPublish);
@@ -83,6 +87,51 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1056, 96);
             this.panel2.TabIndex = 0;
+            // 
+            // txtTopicName
+            // 
+            this.txtTopicName.Location = new System.Drawing.Point(74, 47);
+            this.txtTopicName.Name = "txtTopicName";
+            this.txtTopicName.ReadOnly = true;
+            this.txtTopicName.Size = new System.Drawing.Size(100, 21);
+            this.txtTopicName.TabIndex = 11;
+            this.txtTopicName.Text = "SystemNotice";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 53);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 12);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "主题：";
+            // 
+            // btnPublish
+            // 
+            this.btnPublish.Location = new System.Drawing.Point(884, 45);
+            this.btnPublish.Name = "btnPublish";
+            this.btnPublish.Size = new System.Drawing.Size(75, 28);
+            this.btnPublish.TabIndex = 9;
+            this.btnPublish.Text = "发布";
+            this.btnPublish.UseVisualStyleBackColor = true;
+            this.btnPublish.Click += new System.EventHandler(this.btnPublish_Click);
+            // 
+            // txtNoticeContent
+            // 
+            this.txtNoticeContent.Location = new System.Drawing.Point(290, 48);
+            this.txtNoticeContent.Name = "txtNoticeContent";
+            this.txtNoticeContent.Size = new System.Drawing.Size(398, 21);
+            this.txtNoticeContent.TabIndex = 8;
+            this.txtNoticeContent.Text = "系统消息";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(219, 54);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(65, 12);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "公告内容：";
             // 
             // label3
             // 
@@ -165,49 +214,27 @@
             this.panel1.Size = new System.Drawing.Size(1062, 462);
             this.panel1.TabIndex = 1;
             // 
-            // txtNoticeContent
+            // label6
             // 
-            this.txtNoticeContent.Location = new System.Drawing.Point(290, 48);
-            this.txtNoticeContent.Name = "txtNoticeContent";
-            this.txtNoticeContent.Size = new System.Drawing.Size(398, 21);
-            this.txtNoticeContent.TabIndex = 8;
-            this.txtNoticeContent.Text = "系统消息";
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(694, 53);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 12);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Qos：";
             // 
-            // label4
+            // cbbQos
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(219, 54);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 12);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "公告内容：";
-            // 
-            // btnPublish
-            // 
-            this.btnPublish.Location = new System.Drawing.Point(694, 42);
-            this.btnPublish.Name = "btnPublish";
-            this.btnPublish.Size = new System.Drawing.Size(75, 28);
-            this.btnPublish.TabIndex = 9;
-            this.btnPublish.Text = "发布";
-            this.btnPublish.UseVisualStyleBackColor = true;
-            this.btnPublish.Click += new System.EventHandler(this.btnPublish_Click);
-            // 
-            // txtTopicName
-            // 
-            this.txtTopicName.Location = new System.Drawing.Point(74, 47);
-            this.txtTopicName.Name = "txtTopicName";
-            this.txtTopicName.Size = new System.Drawing.Size(100, 21);
-            this.txtTopicName.TabIndex = 11;
-            this.txtTopicName.Text = "SystemNotic";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 53);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 12);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "主题：";
+            this.cbbQos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbQos.FormattingEnabled = true;
+            this.cbbQos.Items.AddRange(new object[] {
+            "AtMostOnce",
+            "AtLeastOnce",
+            "ExactlyOnce"});
+            this.cbbQos.Location = new System.Drawing.Point(736, 47);
+            this.cbbQos.Name = "cbbQos";
+            this.cbbQos.Size = new System.Drawing.Size(121, 20);
+            this.cbbQos.TabIndex = 13;
             // 
             // FrmMqttServer
             // 
@@ -244,6 +271,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtTopicName;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cbbQos;
+        private System.Windows.Forms.Label label6;
     }
 }
 

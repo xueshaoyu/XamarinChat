@@ -85,6 +85,7 @@ namespace Content.Core
                 { _mqttClient = new MqttFactory().CreateMqttClient(); }
 
                 var handler = new MqttApplicationMessageReceivedHandler();
+                handler.SystemNotice += Handler_SystemNotice;
                 _mqttClient.ApplicationMessageReceivedHandler = handler;
 
                 var r = await _mqttClient.ConnectAsync(options);
@@ -97,12 +98,15 @@ namespace Content.Core
                           .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce).Build();
                     var offlineTopicFilter = new TopicFilterBuilder().WithTopic(MQTTTopic.Offline.ToString())
                           .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce).Build();
+                    var systemNoticeTopicFilter = new TopicFilterBuilder().WithTopic(MQTTTopic.Online.ToString())
+                        .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce).Build();
 
                     var currentOptions = new MqttClientSubscribeOptions();
                     //currentOptions.TopicFilters.Add(msgTopicFilter);
                     //currentOptions.TopicFilters.Remove(msgTopicFilter);
                     currentOptions.TopicFilters.Add(onlineTopicFilter);
                     currentOptions.TopicFilters.Add(offlineTopicFilter);
+                    currentOptions.TopicFilters.Add(systemNoticeTopicFilter);
                     var cancel = new CancellationToken();
                     await _mqttClient.SubscribeAsync(currentOptions);
                     return true;
@@ -121,6 +125,13 @@ namespace Content.Core
                 return false;
             }
         }
+
+        private void Handler_SystemNotice(string obj)
+        {
+
+            Toast_Android.Instance.ShortAlert("系统消息：" + obj);
+        }
+
         /// <summary>
         /// 发送消息到MQTT
         /// </summary>
@@ -242,6 +253,10 @@ namespace Content.Core
         /// <summary>
         /// 只订阅我的消息主题，主题名称为 【Msg-'userid'】
         /// </summary>
-        Msg
+        Msg,
+        /// <summary>
+        /// 系统消息
+        /// </summary>
+        SystemNotice
     }
 }

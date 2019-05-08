@@ -16,6 +16,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		说明.txt = 说明.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppKey", "AppKey", "{260891EF-217C-4B02-B99C-AFE9DA3747D3}"
+	ProjectSection(SolutionItems) = preProject
+		AppKey\AppChat.keyInfo = AppKey\AppChat.keyInfo
+		AppKey\AppChat.keystore = AppKey\AppChat.keystore
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
