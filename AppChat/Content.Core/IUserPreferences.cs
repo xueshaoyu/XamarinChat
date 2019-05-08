@@ -40,5 +40,9 @@ namespace Content.Core
         /// MQTT服务器端口
         /// </summary>
         MqttServerPort,
+        /// <summary>
+        /// MQTTClient编号
+        /// </summary>
+        ClientId
     }
 }

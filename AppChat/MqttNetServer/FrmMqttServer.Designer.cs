@@ -39,6 +39,11 @@
             this.BtnStart = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txtNoticeContent = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btnPublish = new System.Windows.Forms.Button();
+            this.txtTopicName = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -54,13 +59,18 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 102F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 450);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1062, 462);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.txtTopicName);
+            this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.btnPublish);
+            this.panel2.Controls.Add(this.txtNoticeContent);
+            this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.BtnStop);
             this.panel2.Controls.Add(this.TxbPort);
@@ -71,13 +81,13 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(794, 34);
+            this.panel2.Size = new System.Drawing.Size(1056, 96);
             this.panel2.TabIndex = 0;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(593, 14);
+            this.label3.Location = new System.Drawing.Point(243, 60);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(0, 12);
             this.label3.TabIndex = 6;
@@ -115,6 +125,7 @@
             this.TxbServer.Name = "TxbServer";
             this.TxbServer.Size = new System.Drawing.Size(100, 21);
             this.TxbServer.TabIndex = 2;
+            this.TxbServer.Text = "127.0.0.1";
             // 
             // label1
             // 
@@ -140,9 +151,9 @@
             this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(3, 43);
+            this.listBox1.Location = new System.Drawing.Point(3, 105);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(794, 404);
+            this.listBox1.Size = new System.Drawing.Size(1056, 354);
             this.listBox1.TabIndex = 1;
             // 
             // panel1
@@ -151,14 +162,58 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 450);
+            this.panel1.Size = new System.Drawing.Size(1062, 462);
             this.panel1.TabIndex = 1;
+            // 
+            // txtNoticeContent
+            // 
+            this.txtNoticeContent.Location = new System.Drawing.Point(290, 48);
+            this.txtNoticeContent.Name = "txtNoticeContent";
+            this.txtNoticeContent.Size = new System.Drawing.Size(398, 21);
+            this.txtNoticeContent.TabIndex = 8;
+            this.txtNoticeContent.Text = "系统消息";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(219, 54);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(65, 12);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "公告内容：";
+            // 
+            // btnPublish
+            // 
+            this.btnPublish.Location = new System.Drawing.Point(694, 42);
+            this.btnPublish.Name = "btnPublish";
+            this.btnPublish.Size = new System.Drawing.Size(75, 28);
+            this.btnPublish.TabIndex = 9;
+            this.btnPublish.Text = "发布";
+            this.btnPublish.UseVisualStyleBackColor = true;
+            this.btnPublish.Click += new System.EventHandler(this.btnPublish_Click);
+            // 
+            // txtTopicName
+            // 
+            this.txtTopicName.Location = new System.Drawing.Point(74, 47);
+            this.txtTopicName.Name = "txtTopicName";
+            this.txtTopicName.Size = new System.Drawing.Size(100, 21);
+            this.txtTopicName.TabIndex = 11;
+            this.txtTopicName.Text = "SystemNotic";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 53);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 12);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "主题：";
             // 
             // FrmMqttServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1062, 462);
             this.Controls.Add(this.panel1);
             this.Name = "FrmMqttServer";
             this.Text = "Mqtt与接口服务器";
@@ -184,6 +239,11 @@
         private System.Windows.Forms.Button BtnStop;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnPublish;
+        private System.Windows.Forms.TextBox txtNoticeContent;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtTopicName;
+        private System.Windows.Forms.Label label5;
     }
 }
 

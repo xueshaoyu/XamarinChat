@@ -201,7 +201,10 @@ namespace MqttNetServer
             await _mqttServer.StartAsync(options);
         }
 
-
-      
+        private async void btnPublish_Click(object sender, EventArgs e)
+        {
+            //发布系统消息
+          await  _mqttServer.PublishAsync(txtTopicName.Text,txtNoticeContent.Text);
+        }
     }
 }

@@ -20,7 +20,18 @@ namespace Content.Core
     /// </summary>
     public class MQTTHelper
     {
+        private static string clientId;
         private static MQTTHelper instance;
+
+        static MQTTHelper()
+        {
+            var id = App.UserPreferences.GetString(EnumUserPreferences.ClientId.ToString());
+            if (string.IsNullOrEmpty(id))
+            {
+                id = Guid.NewGuid().ToString("D");
+            }
+            clientId = id;
+        }
         public static MQTTHelper Instance
         {
             get
@@ -28,7 +39,7 @@ namespace Content.Core
                 if (instance == null)
                 {
                     instance = new MQTTHelper();
-                  var task=  instance.Init();
+                    var task = instance.Connect();
                     Thread.Sleep(500);
                 }
 
@@ -45,15 +56,18 @@ namespace Content.Core
             get { return _mqttClient; }
         }
 
-
-        private async Task<bool> Init()
+        public async Task Disconnect()
+        {
+            await _mqttClient.DisconnectAsync();
+        }
+        public async Task<bool> Connect()
         {
 
             try
             {
 
                 // var options = new MqttClientOptions() { ClientId = userInfo.Guid + "-" + userInfo.Name };
-                var options = new MqttClientOptions() { ClientId = Guid.NewGuid().ToString("D") };
+                var options = new MqttClientOptions() { ClientId = clientId };
                 options.ChannelOptions = new MqttClientTcpOptions()
                 {
                     Server = ServerIp,
@@ -64,7 +78,7 @@ namespace Content.Core
                     Username = "admin",
                     Password = "public"
                 };
-                options.CleanSession = true;
+                options.CleanSession = false;
                 options.KeepAlivePeriod = TimeSpan.FromSeconds(100.5);
                 options.KeepAliveSendInterval = TimeSpan.FromSeconds(20000);
                 if (_mqttClient == null)
@@ -73,7 +87,7 @@ namespace Content.Core
                 var handler = new MqttApplicationMessageReceivedHandler();
                 _mqttClient.ApplicationMessageReceivedHandler = handler;
 
-                var r =await  _mqttClient.ConnectAsync(options); 
+                var r = await _mqttClient.ConnectAsync(options);
                 if (r.ResultCode == MQTTnet.Client.Connecting.MqttClientConnectResultCode.Success)
                 {
                     //var msgTopicFilter = new TopicFilterBuilder().WithTopic(MQTTTopic.Msg.ToString() + "-" + App.CurrentUser.Id)
