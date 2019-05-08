@@ -4,6 +4,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Android.App;
 using Chat.Model;
 using MQTTnet;
 using MQTTnet.Client;
@@ -12,6 +13,7 @@ using MQTTnet.Client.Publishing;
 using MQTTnet.Client.Subscribing;
 using MQTTnet.Protocol;
 using Newtonsoft.Json;
+using Xamarin.Forms;
 
 namespace Content.Core
 {
@@ -29,6 +31,7 @@ namespace Content.Core
             if (string.IsNullOrEmpty(id))
             {
                 id = Guid.NewGuid().ToString("D");
+                App.UserPreferences.SetString(EnumUserPreferences.ClientId.ToString(),id);
             }
             clientId = id;
         }
@@ -85,6 +88,7 @@ namespace Content.Core
                 { _mqttClient = new MqttFactory().CreateMqttClient(); }
 
                 var handler = new MqttApplicationMessageReceivedHandler();
+
                 handler.SystemNotice += Handler_SystemNotice;
                 _mqttClient.ApplicationMessageReceivedHandler = handler;
 
@@ -98,7 +102,7 @@ namespace Content.Core
                           .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce).Build();
                     var offlineTopicFilter = new TopicFilterBuilder().WithTopic(MQTTTopic.Offline.ToString())
                           .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce).Build();
-                    var systemNoticeTopicFilter = new TopicFilterBuilder().WithTopic(MQTTTopic.Online.ToString())
+                    var systemNoticeTopicFilter = new TopicFilterBuilder().WithTopic(MQTTTopic.SystemNotice.ToString())
                         .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce).Build();
 
                     var currentOptions = new MqttClientSubscribeOptions();
@@ -121,16 +125,26 @@ namespace Content.Core
             catch (Exception ex)
             {
 
-                Toast_Android.Instance.ShortAlert("异常!");
+                Toast_Android.Instance.LongAlert("异常!");
                 return false;
             }
         }
-
-        private void Handler_SystemNotice(string obj)
+        private async void Handler_SystemNotice(string obj)
         {
-
-            Toast_Android.Instance.ShortAlert("系统消息：" + obj);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(App.MainActivity);
+                AlertDialog alertDialog = builder.Create();
+                alertDialog.SetTitle("系统提示");
+                alertDialog.SetMessage(obj);
+                alertDialog.SetButton("知道了", (p1, p2) =>
+                {
+                });
+                alertDialog.Show();
+                // DisplayAlert("系统提示", obj, "知道了");
+            });
         }
+
 
         /// <summary>
         /// 发送消息到MQTT

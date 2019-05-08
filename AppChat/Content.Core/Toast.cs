@@ -42,6 +42,7 @@ namespace Content.Core
         }
         public void LongAlert(string message)
         {
+            
             Toast.MakeText(Android.App.Application.Context, message, ToastLength.Long).Show();
         }
         public void ShortAlert(string message)

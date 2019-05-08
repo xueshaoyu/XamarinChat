@@ -38,11 +38,11 @@ namespace Content.Core
             {
                 handler.ReceiveOnLine += Handler_ReceiveOnLine;
 
-                handler.ReceiveOffline += Handler_ReceiveOffline; ;
+                handler.ReceiveOffline += Handler_ReceiveOffline;
             }
             Init();
         }
-
+       
         private void Handler_ReceiveOffline(int obj)
         {
             var user = Users.FirstOrDefault(p => p.Id == obj);

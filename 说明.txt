@@ -8,6 +8,7 @@
 3.Content.Core：app界面展示及逻辑功能，所涉及的功能都在此项目中
 4.MqttNetServer: MQtt服务端，还包含一个轻量级的Http服务器（用于接收注册数据等）
 5.AppKey:AppKey，秘钥为123123
+6.apk文件夹：生成好的一个apk，可以直接安装
 
 数据库
 1.数据库使用sqlite，数据库文件在MqttNetServer->SQLiteHelper.cs->dbFilePath字段，如果没有数据库，会自动添加数据库文件

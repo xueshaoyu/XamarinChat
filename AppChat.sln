@@ -22,6 +22,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppKey", "AppKey", "{260891
 		AppKey\AppChat.keystore = AppKey\AppChat.keystore
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apk", "Apk", "{A5EEC2C1-B88B-449A-BB09-E544E44AD922}"
+	ProjectSection(SolutionItems) = preProject
+		apk\com.companyname.Chat.apk = apk\com.companyname.Chat.apk
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
