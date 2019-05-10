@@ -6,6 +6,8 @@ namespace Content.Core
 {
     public interface IUserPreferences
     {
+        void SetDefaultValue();
+
         void SetObj<T>(string key, T obj);
         T GetObj<T>(string key);
         void SetString(string key, string value);

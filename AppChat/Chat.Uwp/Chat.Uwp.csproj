@@ -124,6 +124,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Toast_Uwp.cs" />
+    <Compile Include="UserPreferencesUwp.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

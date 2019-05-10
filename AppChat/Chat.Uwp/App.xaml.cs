@@ -45,11 +45,13 @@ namespace Chat.Uwp
             // 只需确保窗口处于活动状态
             if (rootFrame == null)
             {
+                Content.Core.App.Init(new UserPreferencesUwp());
                 // 创建要充当导航上下文的框架，并导航到第一页
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
                 Xamarin.Forms.Forms.Init(e);
+
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
                     //TODO: 从之前挂起的应用程序加载状态

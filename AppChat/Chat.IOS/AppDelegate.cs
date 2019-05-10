@@ -24,6 +24,7 @@ namespace Chat.IOS.iOS
         {
             global::Xamarin.Forms.Forms.Init();
 
+            Content.Core.App.Init(new UserPreferencesIOS());
             var App = new Content.Core.App();
             LoadApplication(App);
 

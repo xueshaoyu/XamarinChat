@@ -18,6 +18,7 @@ namespace Chat.Droid
     {
         public UserPreferencesAndroid()
         {
+            SetDefaultValue();
         }
 
 
@@ -83,6 +84,18 @@ namespace Chat.Droid
         {
             var prefs = Application.Context.GetSharedPreferences("MySharedPrefs", FileCreationMode.Private);
             return prefs.GetInt(key, 0);
+        }
+
+        public void SetDefaultValue()
+        {
+            var exist = GetString(EnumUserPreferences.ServerAddress.ToString());
+            if (exist == null || exist == "")
+            {
+               SetString(EnumUserPreferences.ServerAddress.ToString(),
+                    "http://192.168.0.150:7778/api/");
+               SetString(EnumUserPreferences.MqttServerIp.ToString(), "192.168.0.150");
+               SetInt(EnumUserPreferences.MqttServerPort.ToString(), 7777);
+            }
         }
     }
 }
