@@ -10,5 +10,6 @@ namespace Chat.Model
         public int SendId { get; set; }
         public int ReceiveId { get; set; }
         public string Content { get; set; }
+        public int IsRead { get; set; }
     }
 }

@@ -43,7 +43,7 @@ namespace MqttNetServer
                         userInfo = JsonConvert.DeserializeObject<UserInfo>(bodyContent);
                         msgInfo = JsonConvert.DeserializeObject<MsgInfo>(bodyContent);
                     }
-                    if (userInfo == null && userInfo == null)
+                    if (userInfo == null && userInfo == null&& request.HttpMethod == "POST")
                     {
                         data.Data = "No Data!";
                     }
@@ -80,7 +80,7 @@ namespace MqttNetServer
                                 break;
                             case "frinds":
                                 var dataTable = SQLiteHelper.ExecuteDataTable(string.Format("Select * From UserInfo  Where Id!={0}", userInfo.Id));
-                               var users= ConvertDtToModels(dataTable);
+                                var users = ConvertDtToModels(dataTable);
                                 data.Data = users;
                                 break;
                             case "online":
@@ -103,6 +103,23 @@ namespace MqttNetServer
                                     data.Data = mnum > 0;
                                 }
                                 break;
+                            case "getmessage":
+                                var localUserId = request.QueryString["lId"];
+                                var remoteUserId = request.QueryString["rId"];
+                                var dt = SQLiteHelper.ExecuteDataTable(string.Format("Select * from MsgInfo where sendId={0} and ReceiveId={1} order by DateTimeStamp desc  limit 0,10", remoteUserId, localUserId));
+                                var list = new List<MsgInfo>();
+                                for (int i = dt.Rows.Count-1; i >=0; i--)
+                                {
+                                    var item = new MsgInfo();
+                                    item.DateTimeStamp = (int)dt.Rows[i]["DateTimeStamp"];
+                                    item.SendId = (int)dt.Rows[i]["SendId"];
+                                    item.ReceiveId = (int)dt.Rows[i]["ReceiveId"];
+                                    item.Content = dt.Rows[i]["Content"].ToString();
+                                   // item.IsRead = (int)dt.Rows[i]["IsRead"];
+                                    list.Add(item);
+                                }
+
+                                break;
                             default:
                                 data.IsSuccess = false;
                                 break;
@@ -114,7 +131,7 @@ namespace MqttNetServer
                     data.IsSuccess = false;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 data.IsSuccess = false;
                 data.Data = ex;
@@ -138,12 +155,12 @@ namespace MqttNetServer
         private List<UserInfo> ConvertDtToModels(DataTable dt)
         {
             List<UserInfo> users = new List<UserInfo>();
-            if(dt!=null&&dt.Rows.Count>0)
+            if (dt != null && dt.Rows.Count > 0)
             {
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                   var user= ConvertRowToModel(dt.Rows[i]);
-                    if(user!=null)
+                    var user = ConvertRowToModel(dt.Rows[i]);
+                    if (user != null)
                     {
                         users.Add(user);
                     }

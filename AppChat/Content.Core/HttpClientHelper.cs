@@ -70,6 +70,20 @@ namespace Content.Core
                 return false;
             }
         }
+        public async Task<List<MsgInfo>> GetMessage(int remoteId)
+        {
+            try
+            {
+                var response = await client.GetAsync(
+                    App.UserPreferences.GetString(EnumUserPreferences.ServerAddress.ToString()) + "getmessage?rid="+ remoteId + "&lid="+ App.CurrentUser.Id);
+              var str= await  response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<MsgInfo>>(str);
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         public async Task<bool> Online(UserInfo userInfo)
         {

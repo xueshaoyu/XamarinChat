@@ -37,7 +37,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Label Text="{Binding Name}" TextColor="{Binding Online,Converter={StaticResource UserStateConverter}}" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" FontSize="14" FontFamily="" />
                                 <Label Grid.Column="1" Text="{Binding Online, Converter={StaticResource OnlineConverter}}" VerticalOptions="CenterAndExpand"></Label>
-                                <Label Text="…"  IsVisible="{Binding HasNewMessage}" TextColor="Red"></Label>
+                                <Label Text="…"  Grid.Column="2" IsVisible="{Binding HasNewMessage}" TextColor="Red" VerticalOptions="CenterAndExpand"  FontSize="18" ></Label>
                             </Grid>
                         </StackLayout>
                     </ViewCell>

@@ -1,4 +1,5 @@
 ﻿using Content.Core;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,7 +61,14 @@ namespace Chat.Uwp
 
         public void SetObj<T>(string key, T obj)
         {
-            localSettings.Values[key] = obj;
+            if (obj.GetType() == typeof(string))
+            {
+                SetString(key, obj.ToString());
+            }
+            else
+            {
+                localSettings.Values[key] = JsonConvert.SerializeObject(obj);
+            }
         }
 
         public void SetString(string key, string value)

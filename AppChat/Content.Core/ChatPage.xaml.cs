@@ -32,6 +32,8 @@ namespace Content.Core
             InitializeComponent();
             RemoteUser = remoteUser;
             this.Title = $"Chat with [{remoteUser.Name}]";
+
+
             MsgList.ItemsSource = Messages;
             MsgList.Refreshing += MsgList_Refreshing;
             var handler = MQTTHelper.Instance.MqttClient.ApplicationMessageReceivedHandler as MqttApplicationMessageReceivedHandler;
@@ -39,23 +41,35 @@ namespace Content.Core
             {
                 handler.ReceiveMsg += Handler_ReceiveMsg;
             }
+            LoadMsg();
+        }
 
+        public async void LoadMsg()
+        {
+            var list = await client.GetMessage(RemoteUser.Id);
+            if (list != null && list.Count > 0)
+            {
+                Messages = new ObservableCollection<MsgInfo>(list);
+            }
         }
 
         private void MsgList_Refreshing(object sender, EventArgs e)
         {
-           
+
         }
 
         private void ScollerToButtom()
         {
+            MsgList.BeginRefresh();
             if (Messages.Count > 0)
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
+
                     MsgList.ScrollTo(Messages.Last(), ScrollToPosition.End, false);
                 });
             }
+            MsgList.EndRefresh();
         }
 
         private void Handler_ReceiveMsg(string obj)

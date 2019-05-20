@@ -20,6 +20,21 @@ namespace Chat.Model
                 }
             }
         }
-        public bool HasNewMessage { get; set; }
+        private bool hasNewMessage = false;
+        public bool HasNewMessage
+        {
+            get
+            {
+                return hasNewMessage;
+            }
+            set
+            {
+                if (value != hasNewMessage)
+                {
+                    hasNewMessage = value;
+                    OnPropertyChanged("HasNewMessage");
+                }
+            }
+        }
     }
 }
