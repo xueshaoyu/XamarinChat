@@ -99,14 +99,14 @@ namespace MqttNetServer
                                 }
                                 else
                                 {
-                                    var mnum = SQLiteHelper.ExecuteNonQuery(string.Format("Insert Into MsgInfo(SendId,ReceiveId,Content)Values({0},{1},{2})", msgInfo.SendId, msgInfo.ReceiveId, msgInfo.Content));
+                                    var mnum = SQLiteHelper.ExecuteNonQuery(string.Format("Insert Into Message(SendId,ReceiveId,Content)Values({0},{1},{2})", msgInfo.SendId, msgInfo.ReceiveId, msgInfo.Content));
                                     data.Data = mnum > 0;
                                 }
                                 break;
                             case "getmessage":
                                 var localUserId = request.QueryString["lId"];
                                 var remoteUserId = request.QueryString["rId"];
-                                var dt = SQLiteHelper.ExecuteDataTable(string.Format("Select * from MsgInfo where sendId={0} and ReceiveId={1} order by DateTimeStamp desc  limit 0,10", remoteUserId, localUserId));
+                                var dt = SQLiteHelper.ExecuteDataTable(string.Format("Select * from Message where sendId={0} and ReceiveId={1} order by DateTimeStamp desc  limit 0,10", remoteUserId, localUserId));
                                 var list = new List<MsgInfo>();
                                 for (int i = dt.Rows.Count-1; i >=0; i--)
                                 {

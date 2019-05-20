@@ -76,8 +76,14 @@ namespace Content.Core
             {
                 var response = await client.GetAsync(
                     App.UserPreferences.GetString(EnumUserPreferences.ServerAddress.ToString()) + "getmessage?rid="+ remoteId + "&lid="+ App.CurrentUser.Id);
-              var str= await  response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<List<MsgInfo>>(str);
+              var txt = await  response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<ExchangeData>(txt);
+                if (result.IsSuccess)
+                {
+                    var data = JsonConvert.DeserializeObject<List<MsgInfo>>(result.Data.ToString());
+                    return data;
+                }
+                return null;
             }
             catch
             {
