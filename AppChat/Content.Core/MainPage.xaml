@@ -33,9 +33,11 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                     <ColumnDefinition Width="70"></ColumnDefinition>
+                                    <ColumnDefinition Width="10"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                            <Label Text="{Binding Name}" TextColor="{Binding Online,Converter={StaticResource UserStateConverter}}" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" FontSize="14" FontFamily="" />
+                                <Label Text="{Binding Name}" TextColor="{Binding Online,Converter={StaticResource UserStateConverter}}" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" FontSize="14" FontFamily="" />
                                 <Label Grid.Column="1" Text="{Binding Online, Converter={StaticResource OnlineConverter}}" VerticalOptions="CenterAndExpand"></Label>
+                                <Label Text="…"  IsVisible="{Binding HasNewMessage}" TextColor="Red"></Label>
                             </Grid>
                         </StackLayout>
                     </ViewCell>

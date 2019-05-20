@@ -20,5 +20,6 @@ namespace Chat.Model
                 }
             }
         }
+        public bool HasNewMessage { get; set; }
     }
 }
