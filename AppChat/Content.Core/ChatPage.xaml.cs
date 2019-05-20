@@ -50,6 +50,7 @@ namespace Content.Core
             if (list != null && list.Count > 0)
             {
                 Messages = new ObservableCollection<MsgInfo>(list);
+                MsgList.ItemsSource = Messages;
             }
         }
 
@@ -117,7 +118,7 @@ namespace Content.Core
                 msgInfo.ReceiveId = RemoteUser.Id;
                 msgInfo.SendId = App.CurrentUser.Id;
                 var result = await MQTTHelper.Instance.SendMsg(msgInfo);
-                client.Message(msgInfo);
+                 client.Message(msgInfo);
                 if (result)
                 {
                     SendMsg.Text = "";
