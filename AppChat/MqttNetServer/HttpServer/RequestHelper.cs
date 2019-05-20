@@ -99,7 +99,7 @@ namespace MqttNetServer
                                 }
                                 else
                                 {
-                                    var mnum = SQLiteHelper.ExecuteNonQuery(string.Format("Insert Into Message(SendId,ReceiveId,Content)Values({0},{1},{2})", msgInfo.SendId, msgInfo.ReceiveId, msgInfo.Content));
+                                    var mnum = SQLiteHelper.ExecuteNonQuery(string.Format("Insert Into Message(SendId,ReceiveId,Content,DateTimeStamp)Values({0},{1},'{2}',{3})", msgInfo.SendId, msgInfo.ReceiveId, msgInfo.Content, msgInfo.DateTimeStamp));
                                     data.Data = mnum > 0;
                                 }
                                 break;
@@ -111,14 +111,16 @@ namespace MqttNetServer
                                 for (int i = dt.Rows.Count-1; i >=0; i--)
                                 {
                                     var item = new MsgInfo();
-                                    item.DateTimeStamp = (int)dt.Rows[i]["DateTimeStamp"];
-                                    item.SendId = (int)dt.Rows[i]["SendId"];
-                                    item.ReceiveId = (int)dt.Rows[i]["ReceiveId"];
+                                    item.Id = Convert.ToInt32(dt.Rows[i]["Id"]);
+                                    item.DateTimeStamp =Convert.ToInt32( dt.Rows[i]["DateTimeStamp"]);
+                                    item.SendId = Convert.ToInt32(dt.Rows[i]["SendId"]);
+                                    item.ReceiveId = Convert.ToInt32(dt.Rows[i]["ReceiveId"]);
                                     item.Content = dt.Rows[i]["Content"].ToString();
                                    // item.IsRead = (int)dt.Rows[i]["IsRead"];
                                     list.Add(item);
                                 }
 
+                                data.Data = list;
                                 break;
                             default:
                                 data.IsSuccess = false;
