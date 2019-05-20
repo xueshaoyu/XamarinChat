@@ -10,6 +10,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Application = Xamarin.Forms.Application;
 using Chat.Model;
+using Newtonsoft.Json;
 
 namespace Content.Core
 {
@@ -38,9 +39,27 @@ namespace Content.Core
             {
                 handler.ReceiveOnLine += Handler_ReceiveOnLine;
 
-                handler.ReceiveOffline += Handler_ReceiveOffline; ;
-            }
+                handler.ReceiveOffline += Handler_ReceiveOffline;
+                handler.ReceiveMsg += Handler_ReceiveMsg; ;
+            } 
             Init();
+        }
+
+        private void Handler_ReceiveMsg(string obj)
+        {
+            try
+            {
+                var msgInfo = JsonConvert.DeserializeObject<MsgInfo>(obj);
+                if (msgInfo != null)
+                {
+                    var user = Users.FirstOrDefault(p => p.Id == msgInfo.SendId);
+                    if (user!=null)
+                    {
+                        user.HasNewMessage = true;
+                    }
+                }
+            }
+            catch { }
         }
 
         private void Handler_ReceiveOffline(int obj)
@@ -88,7 +107,10 @@ namespace Content.Core
 
             var item = e.Item as UserInfo;
             if (item != null)
+            {
+                item.HasNewMessage = false;
                 Application.Current.MainPage = new NavigationPage(new ChatPage(item));
+            }
         }
     }
 }
