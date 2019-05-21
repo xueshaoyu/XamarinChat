@@ -31,10 +31,13 @@
                         <StackLayout Padding="15,0">
                             <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="15"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                     <ColumnDefinition Width="70"></ColumnDefinition>
                                     <ColumnDefinition Width="10"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
+                                <Label Text="new"  Grid.Column="2" IsVisible="{Binding IsNeverChat}" TextColor="Red" VerticalOptions="CenterAndExpand"  FontSize="12" ></Label>
+
                                 <Label Text="{Binding Name}" TextColor="{Binding Online,Converter={StaticResource UserStateConverter}}" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" FontSize="14" FontFamily="" />
                                 <Label Grid.Column="1" Text="{Binding Online, Converter={StaticResource OnlineConverter}}" VerticalOptions="CenterAndExpand"></Label>
                                 <Label Text="…"  Grid.Column="2" IsVisible="{Binding HasNewMessage}" TextColor="Red" VerticalOptions="CenterAndExpand"  FontSize="18" ></Label>

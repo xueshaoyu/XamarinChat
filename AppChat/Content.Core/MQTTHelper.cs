@@ -45,10 +45,8 @@ namespace Content.Core
 
         private async Task<bool> Init()
         {
-
             try
             {
-
                 // var options = new MqttClientOptions() { ClientId = userInfo.Guid + "-" + userInfo.Name };
                 var options = new MqttClientOptions() { ClientId = Guid.NewGuid().ToString("D") };
                 options.ChannelOptions = new MqttClientTcpOptions()
@@ -64,19 +62,10 @@ namespace Content.Core
                 options.CleanSession = true;
                 options.KeepAlivePeriod = TimeSpan.FromSeconds(100.5);
                 options.KeepAliveSendInterval = TimeSpan.FromSeconds(20000);
-
-
                 if (_mqttClient == null)
                 { _mqttClient = new MqttFactory().CreateMqttClient(); }
-
-
-
-
-
-
                 var handler = new MqttApplicationMessageReceivedHandler();
                 _mqttClient.ApplicationMessageReceivedHandler = handler;
-
                 var r =await  _mqttClient.ConnectAsync(options); 
                 if (r.ResultCode == MQTTnet.Client.Connecting.MqttClientConnectResultCode.Success)
                 {
@@ -87,11 +76,13 @@ namespace Content.Core
                           .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce).Build();
                     var offlineTopicFilter = new TopicFilterBuilder().WithTopic(MQTTTopic.Offline.ToString())
                           .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce).Build();
-
+                    var registerTopicFilter = new TopicFilterBuilder().WithTopic(MQTTTopic.Register.ToString())
+                        .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.ExactlyOnce).Build();
                     var currentOptions = new MqttClientSubscribeOptions();
                     currentOptions.TopicFilters.Add(msgTopicFilter);
                     currentOptions.TopicFilters.Add(onlineTopicFilter);
                     currentOptions.TopicFilters.Add(offlineTopicFilter);
+                    currentOptions.TopicFilters.Add(registerTopicFilter);
                     var cancel = new CancellationToken();
                     await _mqttClient.SubscribeAsync(currentOptions);
                     return true;

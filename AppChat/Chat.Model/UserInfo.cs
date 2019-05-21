@@ -36,5 +36,22 @@ namespace Chat.Model
                 }
             }
         }
+
+        private bool isNeverChat = true;
+        public bool IsNeverChat
+        {
+            get
+            {
+                return isNeverChat;
+            }
+            set
+            {
+                if (value != isNeverChat)
+                {
+                    isNeverChat = value;
+                    OnPropertyChanged("IsNeverChat");
+                }
+            }
+        }
     }
 }

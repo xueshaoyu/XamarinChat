@@ -38,11 +38,17 @@ namespace Content.Core
             if (handler != null)
             {
                 handler.ReceiveOnLine += Handler_ReceiveOnLine;
-
+                handler.ReceiveMsg += Handler_ReceiveMsg;
                 handler.ReceiveOffline += Handler_ReceiveOffline;
-                handler.ReceiveMsg += Handler_ReceiveMsg; ;
+                handler.Register += Handler_Register; ;
             } 
             Init();
+        }
+
+        private void Handler_Register(UserInfo obj)
+        {
+            Users.Add(obj);
+            UserList.ItemsSource = Users;
         }
 
         private void Handler_ReceiveMsg(string obj)

@@ -14,6 +14,7 @@ namespace Content.Core
         public event Action<string> ReceiveMsg;
         public event Action<int> ReceiveOnLine;
         public event Action<int> ReceiveOffline;
+        public event Action<UserInfo> Register;
         public async Task HandleApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs eventArgs)
         {
             var topic = eventArgs.ApplicationMessage.Topic;
@@ -21,6 +22,15 @@ namespace Content.Core
             {
                 var content = Encoding.UTF8.GetString(eventArgs.ApplicationMessage.Payload);
                 ReceiveMsg?.Invoke(content);
+            }
+            else if (topic == MQTTTopic.Register.ToString())
+            {
+                var content = Encoding.UTF8.GetString(eventArgs.ApplicationMessage.Payload);
+                var userinfo = JsonConvert.DeserializeObject<UserInfo>(content);
+                if (userinfo != null && userinfo.Id > 0)
+                {
+                    Register?.Invoke(userinfo);
+                }
             }
             else if (topic == MQTTTopic.Online.ToString())
             {

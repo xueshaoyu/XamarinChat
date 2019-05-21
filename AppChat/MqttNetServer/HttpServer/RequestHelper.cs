@@ -43,7 +43,7 @@ namespace MqttNetServer
                         userInfo = JsonConvert.DeserializeObject<UserInfo>(bodyContent);
                         msgInfo = JsonConvert.DeserializeObject<MsgInfo>(bodyContent);
                     }
-                    if (userInfo == null && userInfo == null&& request.HttpMethod == "POST")
+                    if (userInfo == null && userInfo == null && request.HttpMethod == "POST")
                     {
                         data.Data = "No Data!";
                     }
@@ -81,6 +81,13 @@ namespace MqttNetServer
                             case "frinds":
                                 var dataTable = SQLiteHelper.ExecuteDataTable(string.Format("Select * From UserInfo  Where Id!={0}", userInfo.Id));
                                 var users = ConvertDtToModels(dataTable);
+                                foreach (var user in users)
+                                {
+                                    var countObj = SQLiteHelper.ExecuteScalar(
+                                    string.Format("Select count(1) From Message Where SendId={0} AND ReceiveId={1}",
+                                        user.Id, userInfo.Id));
+                                    user.IsNeverChat = Convert.ToInt32(countObj) == 0;
+                                }
                                 data.Data = users;
                                 break;
                             case "online":
@@ -108,15 +115,15 @@ namespace MqttNetServer
                                 var remoteUserId = request.QueryString["rId"];
                                 var dt = SQLiteHelper.ExecuteDataTable(string.Format("Select * from Message where sendId={0} and ReceiveId={1} order by DateTimeStamp desc  limit 0,10", remoteUserId, localUserId));
                                 var list = new List<MsgInfo>();
-                                for (int i = dt.Rows.Count-1; i >=0; i--)
+                                for (int i = dt.Rows.Count - 1; i >= 0; i--)
                                 {
                                     var item = new MsgInfo();
                                     item.Id = Convert.ToInt32(dt.Rows[i]["Id"]);
-                                    item.DateTimeStamp =Convert.ToInt32( dt.Rows[i]["DateTimeStamp"]);
+                                    item.DateTimeStamp = Convert.ToInt32(dt.Rows[i]["DateTimeStamp"]);
                                     item.SendId = Convert.ToInt32(dt.Rows[i]["SendId"]);
                                     item.ReceiveId = Convert.ToInt32(dt.Rows[i]["ReceiveId"]);
                                     item.Content = dt.Rows[i]["Content"].ToString();
-                                   // item.IsRead = (int)dt.Rows[i]["IsRead"];
+                                    // item.IsRead = (int)dt.Rows[i]["IsRead"];
                                     list.Add(item);
                                 }
 

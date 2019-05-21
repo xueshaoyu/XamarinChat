@@ -11,7 +11,7 @@ namespace Content.Core
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Register : ContentPage
-    {
+    { 
         private static Register instance;
         public static Register Instance
         {
@@ -41,6 +41,8 @@ namespace Content.Core
             var id = await client.Register(currentUser);
             if (id > 0)
             {
+                currentUser.Id = id;
+                await MQTTHelper.Instance.Register(currentUser);
                 ToastHelper.Instance.ShortAlert("Register Successed!");
                 Application.Current.MainPage = new NavigationPage(Login.Instance);
             }
